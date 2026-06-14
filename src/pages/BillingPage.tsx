@@ -78,7 +78,23 @@ export function BillingPage() {
         <h2 className="text-lg font-semibold">Current plan</h2>
         <p className="mt-2 text-3xl font-bold capitalize">{license?.tier ?? "free"}</p>
         {license?.pro ? (
-          <p className="mt-2 text-sm text-emerald-400">Pro — unlimited exports + Agent Clone for all team members</p>
+          <>
+            <p className="mt-2 text-sm text-emerald-400">Pro — unlimited exports + Agent Clone for all team members</p>
+            <Button
+              variant="secondary"
+              className="mt-4"
+              onClick={async () => {
+                try {
+                  const { url } = await api.billing.portal(activeTeamId);
+                  window.location.href = url;
+                } catch (err) {
+                  setError(err instanceof Error ? err.message : "Could not open billing portal");
+                }
+              }}
+            >
+              Manage subscription
+            </Button>
+          </>
         ) : (
           <p className="mt-2 text-sm text-zinc-400">
             Free — {license?.exports_remaining ?? 0} markdown export

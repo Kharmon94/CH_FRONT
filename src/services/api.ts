@@ -91,6 +91,24 @@ export type License = {
   exports_remaining: number | null;
 };
 
+export type AdminUser = {
+  id: number;
+  email: string;
+  name: string | null;
+  role: string;
+  created_at?: string;
+  teams?: Array<{ id: number; name: string; slug: string }>;
+};
+
+export type AdminTeam = {
+  id: number;
+  name: string;
+  slug: string;
+  export_count: number;
+  member_count: number;
+  license: { tier: string; pro: boolean; status?: string | null };
+};
+
 export class ApiError extends Error {
   status: number;
 
@@ -198,6 +216,16 @@ export const api = {
   authSignUp: (email: string, password: string, name?: string) =>
     post<{ token: string; user: CurrentUser }>("/auth/sign_up", { email, password, name }),
   authMe: () => get<{ user: CurrentUser }>("/auth/me"),
+  authUpdateMe: (body: { name?: string; avatar_signed_id?: string }) =>
+    patch<{ user: CurrentUser }>("/auth/me", body),
+  authForgotPassword: (email: string) =>
+    post<{ message: string }>("/auth/forgot_password", { email }),
+  authResetPassword: (reset_token: string, password: string) =>
+    post<{ message: string }>("/auth/reset_password", {
+      reset_password_token: reset_token,
+      password,
+      password_confirmation: password,
+    }),
   authGoogleStart: (next?: string) =>
     get<{ authorize_url: string }>("/auth/google", next ? { next } : undefined),
   adminSignIn: (email: string, password: string) =>
@@ -252,6 +280,16 @@ export const api = {
     downloadUrl: (id: number) => `${API_BASE}/exports/${id}/download`,
   },
   license: () => get<License>("/license"),
+  stripe: {
+    status: () =>
+      get<{
+        mode: string;
+        enabled: boolean;
+        checkout_ready: boolean;
+        missing: string[];
+        webhook_secrets_configured: boolean;
+      }>("/stripe/status"),
+  },
   billing: {
     checkout: (plan: "monthly" | "annual", teamId?: number) => {
       const id = teamId ?? getTeamId();
@@ -261,6 +299,22 @@ export const api = {
       const id = teamId ?? getTeamId();
       return post<License>(`/teams/${id}/billing/confirm`, { session_id });
     },
+    portal: (teamId?: number) => {
+      const id = teamId ?? getTeamId();
+      return post<{ url: string }>(`/teams/${id}/billing/portal`, {});
+    },
   },
   upload: directUploadFile,
+
+  admin: {
+    users: {
+      list: () => get<AdminUser[]>("/admin/users"),
+      show: (id: number) => get<AdminUser>(`/admin/users/${id}`),
+    },
+    teams: {
+      list: () => get<AdminTeam[]>("/admin/teams"),
+      update: (id: number, body: { license_tier?: string; name?: string }) =>
+        patch<AdminTeam>(`/admin/teams/${id}`, body),
+    },
+  },
 };

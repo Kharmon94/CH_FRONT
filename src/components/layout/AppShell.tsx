@@ -78,7 +78,24 @@ export function AppShell() {
             </span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="hidden text-xs text-zinc-500 md:inline">{user?.email}</span>
+            <Link
+              to="/app/settings"
+              className="flex items-center gap-2 rounded-md px-1 py-0.5 transition hover:bg-zinc-800/80"
+              title="Account settings"
+            >
+              {user?.avatar_url ? (
+                <img
+                  src={user.avatar_url}
+                  alt=""
+                  className="h-8 w-8 rounded-full border border-zinc-700 object-cover"
+                />
+              ) : (
+                <span className="flex h-8 w-8 items-center justify-center rounded-full border border-zinc-700 bg-zinc-800 text-xs text-zinc-400">
+                  {(user?.name?.[0] ?? user?.email?.[0] ?? "?").toUpperCase()}
+                </span>
+              )}
+              <span className="hidden text-xs text-zinc-500 md:inline">{user?.email}</span>
+            </Link>
             <span
               className={`rounded-md px-2 py-1 text-xs font-medium ${
                 license?.pro

@@ -13,6 +13,10 @@ import { ComposerDetailPage } from "../pages/ComposerDetailPage";
 import { ExportsPage } from "../pages/ExportsPage";
 import { BillingPage } from "../pages/BillingPage";
 import { LoginPage } from "../pages/LoginPage";
+import { SignUpPage } from "../pages/SignUpPage";
+import { ForgotPasswordPage } from "../pages/ForgotPasswordPage";
+import { ResetPasswordPage } from "../pages/ResetPasswordPage";
+import { SettingsPage } from "../pages/SettingsPage";
 import { AdminLoginPage } from "../pages/AdminLoginPage";
 import { OAuthGoogleCallbackPage } from "../pages/OAuthGoogleCallbackPage";
 import { TeamSettingsPage } from "../pages/TeamSettingsPage";
@@ -41,6 +45,9 @@ export const router = createBrowserRouter([
     ],
   },
   { path: "/app/login", element: <LoginPage /> },
+  { path: "/app/sign-up", element: <SignUpPage /> },
+  { path: "/app/forgot-password", element: <ForgotPasswordPage /> },
+  { path: "/app/reset-password", element: <ResetPasswordPage /> },
   { path: "/app/oauth/google/callback", element: <OAuthGoogleCallbackPage /> },
   { path: "/admin/login", element: <AdminLoginPage /> },
   {
@@ -58,6 +65,7 @@ export const router = createBrowserRouter([
       { path: "composers/:id", element: <ComposerDetailPage /> },
       { path: "exports", element: <ExportsPage /> },
       { path: "billing", element: <BillingPage /> },
+      { path: "settings", element: <SettingsPage /> },
       { path: "teams/:id/settings", element: <TeamSettingsPage /> },
       { path: "teams/:teamId/billing", element: <BillingPage /> },
       { path: "invite/:token", element: <TeamInvitePage /> },

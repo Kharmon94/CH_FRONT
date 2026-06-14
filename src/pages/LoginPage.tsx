@@ -58,7 +58,12 @@ export function LoginPage() {
             <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
           </div>
           <div>
-            <label className="mb-1 block text-xs text-zinc-400">Password</label>
+            <div className="mb-1 flex items-center justify-between">
+              <label className="text-xs text-zinc-400">Password</label>
+              <Link to="/app/forgot-password" className="text-xs text-emerald-400 hover:text-emerald-300">
+                Forgot password?
+              </Link>
+            </div>
             <Input
               type="password"
               value={password}
@@ -76,6 +81,11 @@ export function LoginPage() {
         </Button>
 
         <p className="mt-6 text-center text-sm text-zinc-500">
+          No account?{" "}
+          <Link to="/app/sign-up" className="text-emerald-400 hover:text-emerald-300">
+            Sign up
+          </Link>
+          {" · "}
           <Link to="/" className="text-emerald-400 hover:text-emerald-300">
             Back to home
           </Link>
