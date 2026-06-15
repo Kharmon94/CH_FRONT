@@ -12,7 +12,7 @@ import { ContactPage } from "../pages/ContactPage";
 import { HelpPage } from "../pages/HelpPage";
 import { BlogIndexPage } from "../pages/BlogIndexPage";
 import { BlogPostPage } from "../pages/BlogPostPage";
-import { DashboardPage } from "../pages/DashboardPage";
+import { DownloadPage } from "../pages/DownloadPage";
 import { ComposersPage } from "../pages/ComposersPage";
 import { ComposerDetailPage } from "../pages/ComposerDetailPage";
 import { ExportsPage } from "../pages/ExportsPage";
@@ -24,6 +24,8 @@ import { ResetPasswordPage } from "../pages/ResetPasswordPage";
 import { SettingsPage } from "../pages/SettingsPage";
 import { AdminLoginPage } from "../pages/AdminLoginPage";
 import { OAuthGoogleCallbackPage } from "../pages/OAuthGoogleCallbackPage";
+import { OAuthDesktopCallbackPage } from "../pages/OAuthDesktopCallbackPage";
+import { DashboardPage } from "../pages/DashboardPage";
 import { TeamSettingsPage } from "../pages/TeamSettingsPage";
 import { TeamInvitePage } from "../pages/TeamInvitePage";
 import { AdminOverviewPage } from "../pages/admin/AdminOverviewPage";
@@ -51,6 +53,7 @@ export const router = createBrowserRouter([
     children: [
       { path: "/", element: <HomePage /> },
       { path: "/pricing", element: <PricingPage /> },
+      { path: "/download", element: <DownloadPage /> },
       { path: "/about", element: <AboutPage /> },
       { path: "/contact", element: <ContactPage /> },
       { path: "/help", element: <HelpPage /> },
@@ -64,6 +67,7 @@ export const router = createBrowserRouter([
   { path: "/app/forgot-password", element: <ForgotPasswordPage /> },
   { path: "/app/reset-password", element: <ResetPasswordPage /> },
   { path: "/app/oauth/google/callback", element: <OAuthGoogleCallbackPage /> },
+  { path: "/app/oauth/desktop/callback", element: <OAuthDesktopCallbackPage /> },
   { path: "/admin/login", element: <AdminLoginPage /> },
   {
     path: "/app",

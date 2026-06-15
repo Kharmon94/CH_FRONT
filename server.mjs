@@ -29,6 +29,34 @@ function sendIndexHtml(res) {
   res.send(fs.readFileSync(INDEX_HTML));
 }
 
+async function proxyApi(req, res) {
+  const upstreamUrl = `${API_UPSTREAM}${req.originalUrl}`;
+  try {
+    const headers = { ...req.headers };
+    delete headers.host;
+    delete headers.connection;
+
+    const init = {
+      method: req.method,
+      headers,
+      body: ["GET", "HEAD"].includes(req.method) ? undefined : req,
+      duplex: "half",
+    };
+
+    const upstream = await fetch(upstreamUrl, init);
+    res.status(upstream.status);
+    upstream.headers.forEach((value, key) => {
+      if (key.toLowerCase() === "transfer-encoding") return;
+      res.setHeader(key, value);
+    });
+    const body = await upstream.arrayBuffer();
+    res.send(Buffer.from(body));
+  } catch (err) {
+    console.error("[Cursor Help] API proxy failed:", err);
+    res.status(502).json({ error: "Local API unavailable" });
+  }
+}
+
 async function proxySitemap(req, res) {
   try {
     const upstream = await fetch(`${API_UPSTREAM}/api/v1/sitemap.xml`, {
@@ -50,6 +78,10 @@ app.use(compression());
 
 app.get("/sitemap.xml", proxySitemap);
 app.head("/sitemap.xml", proxySitemap);
+
+app.use("/api", (req, res) => {
+  void proxyApi(req, res);
+});
 
 app.use((req, res) => {
   if (req.method !== "GET" && req.method !== "HEAD") {
@@ -80,5 +112,5 @@ if (!fs.existsSync(INDEX_HTML)) {
 }
 
 app.listen(PORT, () => {
-  console.log(`[Cursor Help] Serving dist/ on port ${PORT}`);
+  console.log(`[Cursor Help] Serving dist/ on port ${PORT} (API → ${API_UPSTREAM})`);
 });

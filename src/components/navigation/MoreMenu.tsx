@@ -5,6 +5,7 @@ import {
   CreditCard,
   ExternalLink,
   HelpCircle,
+  Download,
   Home,
   LogOut,
   Mail,
@@ -83,6 +84,7 @@ export function MoreMenu({
       ];
     }
     return [
+      { icon: Download, label: "Download", path: "/download" },
       { icon: Info, label: "About", path: "/about" },
       { icon: Newspaper, label: "Blog", path: "/blog" },
       { icon: HelpCircle, label: "Help & FAQ", path: "/help" },

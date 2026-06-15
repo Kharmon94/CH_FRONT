@@ -1,19 +1,36 @@
 import { useEffect, useState } from "react";
 import { api, type ExportStatus } from "../services/api";
 import { Badge } from "../components/ui/Badge";
+import { DownloadDesktopPanel } from "../components/desktop/DownloadDesktopPanel";
+import { isLocalEngineReachable } from "../lib/localEngine";
 
 export function ExportsPage() {
+  const [localReady, setLocalReady] = useState(false);
   const [exports, setExports] = useState<ExportStatus[]>([]);
 
   useEffect(() => {
-    api.exports.list().then(setExports).catch(() => setExports([]));
+    void isLocalEngineReachable().then(setLocalReady);
   }, []);
+
+  useEffect(() => {
+    if (!localReady) return;
+    api.exports.list().then(setExports).catch(() => setExports([]));
+  }, [localReady]);
+
+  if (!localReady) {
+    return (
+      <div className="space-y-6">
+        <h1 className="text-2xl font-semibold">Export history</h1>
+        <DownloadDesktopPanel />
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
       <h1 className="text-2xl font-semibold">Export history</h1>
       {!exports.length ? (
-        <p className="text-sm text-ch-text-secondary">No exports yet.</p>
+        <p className="text-sm text-ch-text-secondary">No exports yet. Export a composer from the Composers page.</p>
       ) : (
         <div className="overflow-hidden rounded-lg border border-ch-border">
           <table className="min-w-full text-sm">

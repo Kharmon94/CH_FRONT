@@ -1,7 +1,9 @@
 import { type FormEvent, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import { useDesktopAuthBridge } from "../hooks/useDesktopAuth";
 import { api } from "../services/api";
+import { isDesktopApp } from "../lib/localEngine";
 import { AuthCard, AuthChrome } from "../components/layout/AuthChrome";
 import { Button } from "../components/ui/Button";
 import { Input } from "../components/ui/Input";
@@ -9,6 +11,7 @@ import { Input } from "../components/ui/Input";
 export function LoginPage() {
   const { signIn } = useAuth();
   const navigate = useNavigate();
+  useDesktopAuthBridge();
   const [params] = useSearchParams();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -33,7 +36,10 @@ export function LoginPage() {
   async function googleSignIn() {
     setError(null);
     try {
-      const next = params.get("next") || "/app";
+      const requestedNext = params.get("next");
+      const next =
+        requestedNext ||
+        (isDesktopApp() ? "/app/oauth/desktop/callback" : "/app");
       const { authorize_url } = await api.authGoogleStart(next);
       window.location.href = authorize_url;
     } catch (err) {

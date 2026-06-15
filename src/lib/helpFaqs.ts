@@ -12,9 +12,14 @@ export const HELP_FAQS: FaqItem[] = [
       "No. Your Cursor database stays on your machine. Cursor Help reads it locally via the path you link in the app. We do not upload raw chat databases to our servers — only account and team metadata when you use cloud features.",
   },
   {
+    question: "Why do I need the desktop app?",
+    answer:
+      "Cursor Help reads state.vscdb on your computer. Browsers and cloud servers cannot access that file. Install the desktop app (or launcher) to link your database, search composers, and export chats locally.",
+  },
+  {
     question: "How do I link my Cursor database?",
     answer:
-      "Sign in, open the Dashboard, and browse for state.vscdb or paste its path. Close Cursor first. If browse cannot auto-detect the path, use How to locate for platform-specific folders.",
+      "Install the desktop app from Download, sign in with your cursorhelp.com account, and open Dashboard. The app auto-detects state.vscdb when possible, or use Browse / paste path. Close Cursor first. See Help → Locate your database for platform paths.",
   },
   {
     question: "What is Agent Clone export?",

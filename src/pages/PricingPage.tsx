@@ -77,6 +77,9 @@ export function PricingPage() {
           </tbody>
         </table>
       </div>
+      <p className="mt-6 text-sm text-ch-text-secondary">
+        Pro features unlock in the desktop app after you sign in with the same account.
+      </p>
     </main>
   );
 }

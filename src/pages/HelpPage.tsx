@@ -56,9 +56,13 @@ export function HelpPage() {
       <Card id="locate-database" className="mt-10 scroll-mt-24 space-y-4">
         <h2 className="text-lg font-semibold text-ch-text">Locate your Cursor database</h2>
         <p className="text-sm text-ch-text-secondary">
-          On the Dashboard, browse for <span className="font-mono text-ch-text">state.vscdb</span> or
+          In the desktop app, browse for <span className="font-mono text-ch-text">state.vscdb</span> or
           paste its path manually. If browse cannot resolve the path automatically, use the locations
-          below.
+          below.{" "}
+          <Link to="/download" className="text-ch-primary hover:underline">
+            Download the app
+          </Link>{" "}
+          if you have not installed it yet.
         </p>
         <div className="rounded-xl border border-ch-border bg-ch-surface-elevated px-4 py-3">
           <p className="text-sm font-medium text-ch-text">Recommendation</p>

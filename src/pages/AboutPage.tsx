@@ -72,16 +72,20 @@ export function AboutPage() {
       </div>
 
       <div className="mt-10 flex flex-wrap gap-4">
-        <Link to="/app">
-          <Button>Open App</Button>
+        <Link to="/download">
+          <Button>Download desktop app</Button>
+        </Link>
+        <Link to="/app/login">
+          <Button variant="secondary">Sign in</Button>
         </Link>
         <Link to="/help">
           <Button variant="secondary">Help & FAQ</Button>
         </Link>
-        <Link to="/contact">
-          <Button variant="secondary">Contact us</Button>
-        </Link>
       </div>
+      <p className="mt-4 max-w-2xl text-sm text-ch-text-secondary">
+        The website is your account portal (billing, teams, settings). Search and export run in the
+        desktop app on your machine.
+      </p>
     </main>
   );
 }

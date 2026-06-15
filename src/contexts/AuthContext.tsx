@@ -8,6 +8,7 @@ import {
   type ReactNode,
 } from "react";
 import { api, getToken, setToken, type CurrentUser } from "../services/api";
+import { isDesktopApp, isLocalEngineReachable } from "../lib/localEngine";
 
 type AuthContextValue = {
   user: CurrentUser | null;
@@ -35,6 +36,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       const res = await api.authMe();
       setUser(res.user);
+      if (isDesktopApp() || (!import.meta.env.DEV && (await isLocalEngineReachable()))) {
+        try {
+          await api.authSyncLocal({ user: res.user, teams: res.user.teams });
+        } catch {
+          // Local sync is best-effort until the engine is running
+        }
+      }
     } catch {
       setToken(null);
       setUser(null);

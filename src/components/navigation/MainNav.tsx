@@ -11,7 +11,6 @@ import {
   CreditCard,
   DollarSign,
   LogIn,
-  AppWindow,
   Bot,
   FileText,
 } from "lucide-react";
@@ -68,7 +67,7 @@ export function MainNav({
     }
     const fourth: Tab =
       user?.role === "user"
-        ? { key: "open-app", label: "Open App", to: "/app", icon: AppWindow, end: true }
+        ? { key: "download", label: "Download", to: "/download", icon: Download, end: true }
         : { key: "sign-in", label: "Sign in", to: "/app/login", icon: LogIn, end: true };
     return [
       { key: "home", label: "Home", to: "/", icon: Home, end: true },

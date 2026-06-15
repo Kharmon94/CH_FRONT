@@ -46,7 +46,7 @@ export function HomePage() {
             "@type": "SoftwareApplication",
             name: "Cursor Help",
             applicationCategory: "DeveloperApplication",
-            operatingSystem: "Web",
+            operatingSystem: "Windows, macOS, Linux",
             url: origin || undefined,
             description:
               "Export Cursor chat history, search composer sessions, and generate Agent Clone handoff files locally.",
@@ -81,19 +81,22 @@ export function HomePage() {
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg text-ch-text-secondary">
             Search every composer session, export full chat history, and clone a broken agent into a
-            fresh session — locally, privately, in one click.
+            fresh session — locally, privately, in one click. Install the desktop app to link your database.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <Link to="/app">
-              <Button>Open App</Button>
+            <Link to="/download">
+              <Button>Download for your OS</Button>
+            </Link>
+            <Link to="/app/login">
+              <Button variant="secondary">Sign in</Button>
             </Link>
             <Link to="/pricing">
               <Button variant="secondary">View Pricing</Button>
             </Link>
-            <Link to="/help">
-              <Button variant="secondary">Help &amp; FAQ</Button>
-            </Link>
           </div>
+          <p className="mx-auto mt-4 max-w-xl text-sm text-ch-text-secondary">
+            Install the desktop app to link your Cursor database — search and export stay on your machine.
+          </p>
         </motion.div>
       </section>
 

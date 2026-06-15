@@ -1,6 +1,7 @@
 import { Link, Outlet } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { useTeam } from "../../contexts/TeamContext";
+import { useDesktopAuthBridge } from "../../hooks/useDesktopAuth";
 import { useLicense } from "../../hooks/useLicense";
 import { TeamSwitcher } from "../teams/TeamSwitcher";
 import { WorkspaceSwitcher } from "../workspaces/WorkspaceSwitcher";
@@ -11,6 +12,7 @@ export function AppShell() {
   const { user } = useAuth();
   const { team, isOwner } = useTeam();
   const { license } = useLicense();
+  useDesktopAuthBridge();
 
   return (
     <ShellLayout

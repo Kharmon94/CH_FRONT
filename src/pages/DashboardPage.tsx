@@ -4,25 +4,36 @@ import { Card } from "../components/ui/Card";
 import { Button } from "../components/ui/Button";
 import { LinkDatabaseForm } from "../components/databases/LinkDatabaseForm";
 import { LocateDatabaseHelpButton } from "../components/databases/LocateDatabaseHelp";
+import { DownloadDesktopPanel } from "../components/desktop/DownloadDesktopPanel";
+import { isLocalEngineReachable } from "../lib/localEngine";
 
 export function DashboardPage() {
   const [databases, setDatabases] = useState<LinkedDatabase[]>([]);
   const [loading, setLoading] = useState(true);
+  const [localReady, setLocalReady] = useState(false);
 
   const load = useCallback(async () => {
+    if (!localReady) return;
     setLoading(true);
     try {
       setDatabases(await api.linkedDatabases.list());
+    } catch {
+      setDatabases([]);
     } finally {
       setLoading(false);
     }
+  }, [localReady]);
+
+  useEffect(() => {
+    void isLocalEngineReachable().then(setLocalReady);
   }, []);
 
   useEffect(() => {
+    if (!localReady) return;
     void load();
     const timer = setInterval(load, 3000);
     return () => clearInterval(timer);
-  }, [load]);
+  }, [load, localReady]);
 
   const active = databases[0];
 
@@ -30,15 +41,21 @@ export function DashboardPage() {
     <div className="space-y-6">
       <h1 className="text-2xl font-semibold">Dashboard</h1>
 
-      <Card>
-        <div className="mb-4 flex items-start justify-between gap-4">
-          <h2 className="text-lg font-medium">Link database</h2>
-          <LocateDatabaseHelpButton className="shrink-0" />
-        </div>
-        <LinkDatabaseForm onLinked={load} />
-      </Card>
+      {localReady ? (
+        <Card>
+          <div className="mb-4 flex items-start justify-between gap-4">
+            <h2 className="text-lg font-medium">Link database</h2>
+            <LocateDatabaseHelpButton className="shrink-0" />
+          </div>
+          <LinkDatabaseForm onLinked={load} />
+        </Card>
+      ) : (
+        <Card>
+          <DownloadDesktopPanel />
+        </Card>
+      )}
 
-      {loading && !active ? (
+      {localReady && loading && !active ? (
         <p className="text-sm text-ch-text-secondary">Loading…</p>
       ) : active ? (
         <Card>
