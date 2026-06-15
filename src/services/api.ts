@@ -1,4 +1,12 @@
-const API_BASE = import.meta.env.VITE_API_URL ?? "/api/v1";
+/** API host or full /api/v1 base from VITE_API_URL; defaults to same-origin /api/v1 in dev. */
+export function resolveApiBase(envUrl?: string): string {
+  const raw = (envUrl ?? "").trim().replace(/\/$/, "");
+  if (!raw) return "/api/v1";
+  if (raw.endsWith("/api/v1")) return raw;
+  return `${raw}/api/v1`;
+}
+
+const API_BASE = resolveApiBase(import.meta.env.VITE_API_URL);
 const TOKEN_KEY = "cursorhelp_jwt";
 const TEAM_KEY = "cursorhelp_team_id";
 const WORKSPACE_KEY = "cursorhelp_workspace_id";
