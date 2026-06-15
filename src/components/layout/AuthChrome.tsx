@@ -1,16 +1,8 @@
 import type { ReactNode } from "react";
-import { Link } from "react-router-dom";
 
 export function AuthChrome({ children }: { children: ReactNode }) {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-ch-bg px-4 py-12">
-      <Link
-        to="/"
-        className="mb-8 text-lg font-semibold text-ch-primary"
-        style={{ fontFamily: "var(--font-display)" }}
-      >
-        Cursor Help
-      </Link>
       {children}
     </div>
   );
