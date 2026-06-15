@@ -10,7 +10,6 @@ import {
   Building2,
   CreditCard,
   DollarSign,
-  HelpCircle,
   LogIn,
   AppWindow,
   Bot,
@@ -72,7 +71,6 @@ export function MainNav({
     return [
       { key: "home", label: "Home", to: "/", icon: Home, end: true },
       { key: "pricing", label: "Pricing", to: "/pricing", icon: DollarSign, end: true },
-      { key: "how-it-works", label: "How it works", to: "/#how-it-works", icon: HelpCircle },
       fourth,
     ];
   }, [context, user?.role]);

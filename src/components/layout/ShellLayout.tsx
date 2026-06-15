@@ -32,7 +32,7 @@ export function ShellLayout({
       <ThemeToggleHost />
 
       <main
-        className={`mx-auto w-full max-w-6xl px-4 pb-28 pt-14 sm:px-6 sm:pt-16 ${hideNav ? "pb-12" : "pb-28"}`}
+        className={`mx-auto w-full max-w-6xl px-4 pb-28 pt-4 sm:px-6 sm:pt-5 ${hideNav ? "pb-12" : "pb-28"}`}
       >
         <PageTransition>{children}</PageTransition>
       </main>

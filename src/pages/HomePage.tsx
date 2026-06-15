@@ -13,7 +13,7 @@ const features = [
 export function HomePage() {
   return (
     <main>
-      <section className="relative overflow-hidden py-12 text-center sm:py-20">
+      <section className="relative overflow-hidden pb-12 text-center sm:pb-20">
         <div
           aria-hidden
           className="pointer-events-none absolute inset-x-0 top-0 mx-auto h-64 max-w-3xl rounded-full bg-ch-primary/20 blur-3xl"
