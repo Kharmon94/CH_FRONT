@@ -167,10 +167,19 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
       : { "Content-Type": "application/json", Accept: "application/json" }
   );
 
-  const response = await fetch(`${API_BASE}${path}`, {
-    ...init,
-    headers: { ...headers, ...(init?.headers as Record<string, string>) },
-  });
+  let response: Response;
+  try {
+    response = await fetch(`${API_BASE}${path}`, {
+      ...init,
+      headers: { ...headers, ...(init?.headers as Record<string, string>) },
+    });
+  } catch {
+    const hint =
+      API_BASE.startsWith("http") && typeof window !== "undefined"
+        ? " Check that the API is running and FRONTEND_ORIGIN includes this site’s URL."
+        : " Start the API with bin/dev from the repo root (API on :3000, Vite on :5173).";
+    throw new ApiError(`Cannot reach the API.${hint}`, 0);
+  }
 
   if (!response.ok) {
     const body = await response.json().catch(() => ({}));
