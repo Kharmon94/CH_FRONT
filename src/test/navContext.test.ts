@@ -20,6 +20,9 @@ describe("navContext", () => {
   it("resolves admin routes except login", () => {
     expect(resolveNavContext("/admin")).toBe("admin");
     expect(resolveNavContext("/admin/users")).toBe("admin");
+    expect(resolveNavContext("/admin/users/42")).toBe("admin");
+    expect(resolveNavContext("/admin/teams/7")).toBe("admin");
+    expect(resolveNavContext("/admin/licenses")).toBe("admin");
     expect(resolveNavContext("/admin/login")).toBe("public");
   });
 

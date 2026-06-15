@@ -4,6 +4,9 @@ import userEvent from "@testing-library/user-event";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { FormatSelector } from "../components/exports/FormatSelector";
 import { HomePage } from "../pages/HomePage";
+import { AdminOverviewPage } from "../pages/admin/AdminOverviewPage";
+import { AdminUsersPage } from "../pages/admin/AdminUsersPage";
+import { AdminLicensesPage } from "../pages/admin/AdminLicensesPage";
 import { OAuthGoogleCallbackPage } from "../pages/OAuthGoogleCallbackPage";
 import { TeamSwitcher } from "../components/teams/TeamSwitcher";
 import { TeamProvider } from "../contexts/TeamContext";
@@ -119,6 +122,105 @@ describe("OAuthGoogleCallbackPage", () => {
       })
     );
     expect(apiModule.api.authMe).not.toHaveBeenCalled();
+  });
+});
+
+describe("Admin pages", () => {
+  beforeEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it("renders overview with mocked stats", async () => {
+    vi.spyOn(apiModule.api.admin, "stats").mockResolvedValue({
+      users_count: 12,
+      admins_count: 1,
+      teams_count: 4,
+      pro_teams_count: 2,
+      free_teams_count: 2,
+      total_exports: 99,
+      recent_users: [
+        {
+          id: 1,
+          email: "alice@example.com",
+          role: "user",
+          name: "Alice",
+          created_at: "2026-01-01T00:00:00Z",
+        },
+      ],
+      recent_teams: [
+        {
+          id: 10,
+          name: "Acme",
+          slug: "acme",
+          export_count: 5,
+          member_count: 3,
+          license: { tier: "pro", pro: true, status: "active" },
+        },
+      ],
+    });
+
+    render(
+      <MemoryRouter>
+        <AdminOverviewPage />
+      </MemoryRouter>
+    );
+
+    await waitFor(() =>
+      expect(screen.getByRole("heading", { name: "Overview" })).toBeInTheDocument()
+    );
+    expect(screen.getByText("12")).toBeInTheDocument();
+    expect(screen.getByText("alice@example.com")).toBeInTheDocument();
+    expect(screen.getByText("Acme")).toBeInTheDocument();
+    expect(apiModule.api.admin.stats).toHaveBeenCalled();
+  });
+
+  it("renders users list", async () => {
+    vi.spyOn(apiModule.api.admin.users, "list").mockResolvedValue([
+      {
+        id: 1,
+        email: "user@example.com",
+        name: "User",
+        role: "user",
+        created_at: "2026-01-01T00:00:00Z",
+      },
+    ]);
+
+    render(
+      <MemoryRouter>
+        <AdminUsersPage />
+      </MemoryRouter>
+    );
+
+    await waitFor(() => expect(screen.getByText("user@example.com")).toBeInTheDocument());
+    expect(screen.getByPlaceholderText("Search by email or name…")).toBeInTheDocument();
+  });
+
+  it("renders licenses page with mocked list", async () => {
+    vi.spyOn(apiModule.api.admin.licenses, "list").mockResolvedValue([
+      {
+        team_id: 10,
+        team_name: "Acme",
+        team_slug: "acme",
+        tier: "pro",
+        pro: true,
+        status: "active",
+        export_count: 5,
+        member_count: 3,
+      },
+    ]);
+
+    render(
+      <MemoryRouter initialEntries={["/admin/licenses"]}>
+        <AdminLicensesPage />
+      </MemoryRouter>
+    );
+
+    await waitFor(() =>
+      expect(screen.getByRole("heading", { name: "Licenses" })).toBeInTheDocument()
+    );
+    expect(screen.getByText("Acme")).toBeInTheDocument();
+    expect(screen.getAllByText("Pro").length).toBeGreaterThan(0);
+    expect(apiModule.api.admin.licenses.list).toHaveBeenCalled();
   });
 });
 

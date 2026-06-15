@@ -1,11 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { motion } from "motion/react";
 import { api, type AdminUser } from "../../services/api";
+import { AdminPageHeader } from "../../components/admin/AdminPageHeader";
+import { AdminSearchInput } from "../../components/admin/AdminSearchInput";
+import { AdminListRow } from "../../components/admin/AdminListRow";
+import { AdminEmptyState } from "../../components/admin/AdminEmptyState";
+import { Badge } from "../../components/ui/Badge";
+import { PAGE_TRANSITION } from "../../lib/motion";
 
 export function AdminUsersPage() {
   const [users, setUsers] = useState<AdminUser[]>([]);
-  const [selected, setSelected] = useState<AdminUser | null>(null);
+  const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(true);
-  const [detailLoading, setDetailLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -21,80 +27,61 @@ export function AdminUsersPage() {
       .finally(() => setLoading(false));
   }, []);
 
-  async function selectUser(user: AdminUser) {
-    setSelected(user);
-    setDetailLoading(true);
-    setError(null);
-    try {
-      const detail = await api.admin.users.show(user.id);
-      setSelected(detail);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to load user");
-    } finally {
-      setDetailLoading(false);
-    }
-  }
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return users;
+    return users.filter(
+      (user) =>
+        user.email.toLowerCase().includes(q) ||
+        (user.name?.toLowerCase().includes(q) ?? false)
+    );
+  }, [users, query]);
 
   return (
-    <div>
-      <h1 className="text-2xl font-semibold">Users</h1>
+    <motion.div {...PAGE_TRANSITION} className="space-y-6">
+      <AdminPageHeader
+        title="Users"
+        subtitle="Browse and manage user accounts."
+        breadcrumbs={[
+          { label: "Overview", to: "/admin" },
+          { label: "Users" },
+        ]}
+      />
 
-      {error && <p className="mt-4 text-sm text-red-400">{error}</p>}
-      {loading && <p className="mt-4 text-sm text-ch-text-secondary">Loading users…</p>}
+      <AdminSearchInput
+        value={query}
+        onChange={setQuery}
+        placeholder="Search by email or name…"
+      />
 
-      {!loading && users.length === 0 && !error && (
-        <p className="mt-4 text-sm text-ch-text-secondary">No users found.</p>
-      )}
+      {error ? <p className="text-sm text-red-400">{error}</p> : null}
+      {loading ? <p className="text-sm text-ch-text-secondary">Loading users…</p> : null}
 
-      <div className="mt-4 grid gap-6 lg:grid-cols-2">
-        <ul className="space-y-2 text-sm">
-          {users.map((u) => (
-            <li key={u.id}>
-              <button
-                type="button"
-                onClick={() => selectUser(u)}
-                className={`w-full rounded-md border px-3 py-2 text-left transition ${
-                  selected?.id === u.id
-                    ? "border-ch-primary/50 bg-ch-primary/10"
-                    : "border-ch-border hover:border-ch-border"
-                }`}
-              >
-                <span className="font-medium">{u.email}</span>
-                <span className="ml-2 text-ch-text-secondary">({u.role})</span>
-              </button>
-            </li>
+      {!loading && filtered.length === 0 ? (
+        <AdminEmptyState
+          title={query ? "No matching users" : "No users found"}
+          description={query ? "Try a different search term." : undefined}
+        />
+      ) : null}
+
+      {!loading && filtered.length > 0 ? (
+        <ul className="space-y-2">
+          {filtered.map((user) => (
+            <AdminListRow
+              key={user.id}
+              to={`/admin/users/${user.id}`}
+              meta={
+                <Badge variant={user.role === "admin" ? "primary" : "muted"}>
+                  {user.role}
+                </Badge>
+              }
+            >
+              <p className="truncate font-medium">{user.email}</p>
+              {user.name ? <p className="text-ch-text-secondary">{user.name}</p> : null}
+            </AdminListRow>
           ))}
         </ul>
-
-        {selected && (
-          <div className="rounded-md border border-ch-border p-4 text-sm">
-            {detailLoading ? (
-              <p className="text-ch-text-secondary">Loading details…</p>
-            ) : (
-              <>
-                <h2 className="text-lg font-semibold">{selected.email}</h2>
-                {selected.name && <p className="mt-1 text-ch-text-secondary">{selected.name}</p>}
-                <p className="mt-2 text-ch-text-secondary">Role: {selected.role}</p>
-                {selected.created_at && (
-                  <p className="text-ch-text-secondary">Joined: {new Date(selected.created_at).toLocaleDateString()}</p>
-                )}
-                <h3 className="mt-4 font-medium text-ch-text">Teams</h3>
-                {selected.teams && selected.teams.length > 0 ? (
-                  <ul className="mt-2 space-y-1 text-ch-text-secondary">
-                    {selected.teams.map((t) => (
-                      <li key={t.id}>
-                        {t.name} <span className="text-ch-text-secondary">({t.slug})</span>
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  <p className="mt-2 text-ch-text-secondary">No teams</p>
-                )}
-              </>
-            )}
-          </div>
-        )}
-      </div>
-    </div>
+      ) : null}
+    </motion.div>
   );
 }

@@ -1,24 +1,25 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { motion } from "motion/react";
 import { api, type AdminTeam } from "../../services/api";
-import { Button } from "../../components/ui/Button";
+import { AdminPageHeader } from "../../components/admin/AdminPageHeader";
+import { AdminSearchInput } from "../../components/admin/AdminSearchInput";
+import { AdminListRow } from "../../components/admin/AdminListRow";
+import { AdminEmptyState } from "../../components/admin/AdminEmptyState";
+import { LicenseTierBadge } from "../../components/admin/LicenseTierBadge";
+import { PAGE_TRANSITION } from "../../lib/motion";
 
 export function AdminTeamsPage() {
   const [teams, setTeams] = useState<AdminTeam[]>([]);
-  const [tiers, setTiers] = useState<Record<number, string>>({});
+  const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(true);
-  const [savingId, setSavingId] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [message, setMessage] = useState<string | null>(null);
 
   useEffect(() => {
     setLoading(true);
     setError(null);
     api.admin.teams
       .list()
-      .then((rows) => {
-        setTeams(rows);
-        setTiers(Object.fromEntries(rows.map((t) => [t.id, t.license.tier])));
-      })
+      .then(setTeams)
       .catch((err) => {
         setError(err instanceof Error ? err.message : "Failed to load teams");
         setTeams([]);
@@ -26,67 +27,63 @@ export function AdminTeamsPage() {
       .finally(() => setLoading(false));
   }, []);
 
-  async function saveTier(teamId: number) {
-    const tier = tiers[teamId];
-    if (!tier) return;
-    setSavingId(teamId);
-    setError(null);
-    setMessage(null);
-    try {
-      const updated = await api.admin.teams.update(teamId, { license_tier: tier });
-      setTeams((prev) => prev.map((t) => (t.id === teamId ? updated : t)));
-      setMessage(`Updated ${updated.name} to ${tier}`);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to update team");
-    } finally {
-      setSavingId(null);
-    }
-  }
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return teams;
+    return teams.filter(
+      (team) =>
+        team.name.toLowerCase().includes(q) || team.slug.toLowerCase().includes(q)
+    );
+  }, [teams, query]);
 
   return (
-    <div>
-      <h1 className="text-2xl font-semibold">Teams</h1>
+    <motion.div {...PAGE_TRANSITION} className="space-y-6">
+      <AdminPageHeader
+        title="Teams"
+        subtitle="Browse teams and open detail pages to manage licenses."
+        breadcrumbs={[
+          { label: "Overview", to: "/admin" },
+          { label: "Teams" },
+        ]}
+      />
 
-      {error && <p className="mt-4 text-sm text-red-400">{error}</p>}
-      {message && <p className="mt-4 text-sm text-ch-primary">{message}</p>}
-      {loading && <p className="mt-4 text-sm text-ch-text-secondary">Loading teams…</p>}
+      <AdminSearchInput
+        value={query}
+        onChange={setQuery}
+        placeholder="Search by name or slug…"
+      />
 
-      {!loading && teams.length === 0 && !error && (
-        <p className="mt-4 text-sm text-ch-text-secondary">No teams found.</p>
-      )}
+      {error ? <p className="text-sm text-red-400">{error}</p> : null}
+      {loading ? <p className="text-sm text-ch-text-secondary">Loading teams…</p> : null}
 
-      <ul className="mt-4 space-y-3 text-sm">
-        {teams.map((t) => (
-          <li
-            key={t.id}
-            className="flex flex-wrap items-center justify-between gap-3 rounded-md border border-ch-border px-3 py-3"
-          >
-            <div>
-              <span className="font-medium">{t.name}</span>
-              <span className="ml-2 text-ch-text-secondary">
-                {t.member_count} members · {t.export_count} exports
-              </span>
-            </div>
-            <div className="flex items-center gap-2">
-              <select
-                value={tiers[t.id] ?? t.license.tier}
-                onChange={(e) => setTiers((prev) => ({ ...prev, [t.id]: e.target.value }))}
-                className="rounded-md border border-ch-border bg-ch-surface-elevated px-2 py-1 text-sm text-ch-text"
-              >
-                <option value="free">Free</option>
-                <option value="pro">Pro</option>
-              </select>
-              <Button
-                variant="secondary"
-                disabled={savingId === t.id || tiers[t.id] === t.license.tier}
-                onClick={() => saveTier(t.id)}
-              >
-                {savingId === t.id ? "Saving…" : "Save"}
-              </Button>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </div>
+      {!loading && filtered.length === 0 ? (
+        <AdminEmptyState
+          title={query ? "No matching teams" : "No teams found"}
+          description={query ? "Try a different search term." : undefined}
+        />
+      ) : null}
+
+      {!loading && filtered.length > 0 ? (
+        <ul className="space-y-2">
+          {filtered.map((team) => (
+            <AdminListRow
+              key={team.id}
+              to={`/admin/teams/${team.id}`}
+              meta={
+                <LicenseTierBadge
+                  tier={team.license.tier}
+                  status={team.license.status}
+                />
+              }
+            >
+              <p className="truncate font-medium">{team.name}</p>
+              <p className="text-ch-text-secondary">
+                {team.slug} · {team.member_count} members · {team.export_count} exports
+              </p>
+            </AdminListRow>
+          ))}
+        </ul>
+      ) : null}
+    </motion.div>
   );
 }

@@ -73,6 +73,7 @@ export function MoreMenu({
     }
     if (context === "admin") {
       return [
+        { icon: CreditCard, label: "Licenses", path: "/admin/licenses" },
         { icon: LogOut, label: "Sign out", onClick: handleSignOut, tone: "danger" },
         { icon: ExternalLink, label: "cursorhelp.com", path: "/" },
       ];
@@ -97,7 +98,7 @@ export function MoreMenu({
         className={`fixed z-[120] flex flex-col border border-ch-border bg-ch-surface shadow-xl ${
           isMobile
             ? "inset-x-0 bottom-0 max-h-[min(85dvh,600px)] rounded-t-3xl"
-            : "left-4 top-1/2 w-[min(360px,calc(100vw-2rem))] -translate-y-1/2 rounded-3xl"
+            : "left-1/2 top-1/2 w-[min(360px,calc(100vw-2rem))] -translate-x-1/2 -translate-y-1/2 rounded-3xl"
         }`}
         style={{ paddingBottom: isMobile ? "max(1.5rem, env(safe-area-inset-bottom))" : undefined }}
       >

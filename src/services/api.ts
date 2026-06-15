@@ -108,13 +108,38 @@ export type AdminUser = {
   teams?: Array<{ id: number; name: string; slug: string }>;
 };
 
+export type AdminStats = {
+  users_count: number;
+  admins_count: number;
+  teams_count: number;
+  pro_teams_count: number;
+  free_teams_count: number;
+  total_exports: number;
+  recent_users: AdminUser[];
+  recent_teams: AdminTeam[];
+};
+
+export type AdminLicense = {
+  team_id: number;
+  team_name: string;
+  team_slug: string;
+  tier: string;
+  pro: boolean;
+  status: string | null;
+  export_count: number;
+  member_count: number;
+};
+
 export type AdminTeam = {
   id: number;
   name: string;
   slug: string;
   export_count: number;
   member_count: number;
+  created_at?: string;
   license: { tier: string; pro: boolean; status?: string | null };
+  members?: Array<{ id: number; email: string; name: string | null; role: string }>;
+  workspaces?: Array<{ id: number; name: string; slug: string }>;
 };
 
 export class ApiError extends Error {
@@ -324,14 +349,21 @@ export const api = {
   upload: directUploadFile,
 
   admin: {
+    stats: () => get<AdminStats>("/admin/stats"),
     users: {
       list: () => get<AdminUser[]>("/admin/users"),
       show: (id: number) => get<AdminUser>(`/admin/users/${id}`),
+      update: (id: number, body: { name?: string; role?: "admin" | "user" }) =>
+        patch<AdminUser>(`/admin/users/${id}`, body),
     },
     teams: {
       list: () => get<AdminTeam[]>("/admin/teams"),
+      show: (id: number) => get<AdminTeam>(`/admin/teams/${id}`),
       update: (id: number, body: { license_tier?: string; name?: string }) =>
         patch<AdminTeam>(`/admin/teams/${id}`, body),
+    },
+    licenses: {
+      list: (params?: { tier?: string }) => get<AdminLicense[]>("/admin/licenses", params),
     },
   },
 };

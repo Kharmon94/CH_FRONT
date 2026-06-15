@@ -23,7 +23,10 @@ import { TeamSettingsPage } from "../pages/TeamSettingsPage";
 import { TeamInvitePage } from "../pages/TeamInvitePage";
 import { AdminOverviewPage } from "../pages/admin/AdminOverviewPage";
 import { AdminUsersPage } from "../pages/admin/AdminUsersPage";
+import { AdminUserDetailPage } from "../pages/admin/AdminUserDetailPage";
 import { AdminTeamsPage } from "../pages/admin/AdminTeamsPage";
+import { AdminTeamDetailPage } from "../pages/admin/AdminTeamDetailPage";
+import { AdminLicensesPage } from "../pages/admin/AdminLicensesPage";
 import { TeamProvider } from "../contexts/TeamContext";
 import { WorkspaceProvider } from "../contexts/WorkspaceContext";
 
@@ -81,7 +84,10 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <AdminOverviewPage /> },
       { path: "users", element: <AdminUsersPage /> },
+      { path: "users/:userId", element: <AdminUserDetailPage /> },
       { path: "teams", element: <AdminTeamsPage /> },
+      { path: "teams/:teamId", element: <AdminTeamDetailPage /> },
+      { path: "licenses", element: <AdminLicensesPage /> },
     ],
   },
 ]);

@@ -8,6 +8,7 @@ import {
   Shield,
   Users,
   Building2,
+  CreditCard,
   DollarSign,
   HelpCircle,
   LogIn,
@@ -59,8 +60,9 @@ export function MainNav({
     if (context === "admin") {
       return [
         { key: "overview", label: "Overview", to: "/admin", icon: Shield, end: true },
-        { key: "users", label: "Users", to: "/admin/users", icon: Users, end: true },
-        { key: "teams", label: "Teams", to: "/admin/teams", icon: Building2, end: true },
+        { key: "users", label: "Users", to: "/admin/users", icon: Users },
+        { key: "teams", label: "Teams", to: "/admin/teams", icon: Building2 },
+        { key: "licenses", label: "Licenses", to: "/admin/licenses", icon: CreditCard, end: true },
       ];
     }
     const fourth: Tab =
