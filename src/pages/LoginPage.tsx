@@ -2,6 +2,7 @@ import { type FormEvent, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { api } from "../services/api";
+import { AuthCard, AuthChrome } from "../components/layout/AuthChrome";
 import { Button } from "../components/ui/Button";
 import { Input } from "../components/ui/Input";
 
@@ -41,26 +42,26 @@ export function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-950 px-4">
-      <div className="w-full max-w-md rounded-xl border border-zinc-800/80 bg-zinc-900/60 p-8 backdrop-blur">
-        <h1 className="text-2xl font-semibold text-white">Sign in</h1>
-        <p className="mt-2 text-sm text-zinc-400">Access your Cursor Help workspace</p>
+    <AuthChrome>
+      <AuthCard>
+        <h1 className="text-2xl font-semibold text-ch-text">Sign in</h1>
+        <p className="mt-2 text-sm text-ch-text-secondary">Access your Cursor Help workspace</p>
 
         {error && (
-          <p className="mt-4 rounded-md border border-red-500/30 bg-red-500/10 px-3 py-2 text-sm text-red-300">
+          <p className="mt-4 rounded-xl border border-red-500/30 bg-red-500/10 px-3 py-2 text-sm text-red-500">
             {error}
           </p>
         )}
 
         <form onSubmit={onSubmit} className="mt-6 space-y-4">
           <div>
-            <label className="mb-1 block text-xs text-zinc-400">Email</label>
+            <label className="mb-1 block text-xs text-ch-text-secondary">Email</label>
             <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
           </div>
           <div>
             <div className="mb-1 flex items-center justify-between">
-              <label className="text-xs text-zinc-400">Password</label>
-              <Link to="/app/forgot-password" className="text-xs text-emerald-400 hover:text-emerald-300">
+              <label className="text-xs text-ch-text-secondary">Password</label>
+              <Link to="/app/forgot-password" className="text-xs text-ch-primary hover:opacity-80">
                 Forgot password?
               </Link>
             </div>
@@ -80,17 +81,17 @@ export function LoginPage() {
           Continue with Google
         </Button>
 
-        <p className="mt-6 text-center text-sm text-zinc-500">
+        <p className="mt-6 text-center text-sm text-ch-text-secondary">
           No account?{" "}
-          <Link to="/app/sign-up" className="text-emerald-400 hover:text-emerald-300">
+          <Link to="/app/sign-up" className="text-ch-primary hover:opacity-80">
             Sign up
           </Link>
           {" · "}
-          <Link to="/" className="text-emerald-400 hover:text-emerald-300">
+          <Link to="/" className="text-ch-primary hover:opacity-80">
             Back to home
           </Link>
         </p>
-      </div>
-    </div>
+      </AuthCard>
+    </AuthChrome>
   );
 }

@@ -1,10 +1,10 @@
-type BadgeVariant = "default" | "emerald" | "violet" | "muted";
+type BadgeVariant = "default" | "primary" | "accent" | "muted";
 
 const styles: Record<BadgeVariant, string> = {
-  default: "bg-zinc-800 text-zinc-200",
-  emerald: "bg-emerald-500/15 text-emerald-400",
-  violet: "bg-violet-500/15 text-violet-400",
-  muted: "bg-zinc-800 text-zinc-400",
+  default: "bg-ch-surface-elevated text-ch-text",
+  primary: "bg-ch-primary/15 text-ch-primary",
+  accent: "bg-ch-accent/15 text-ch-accent",
+  muted: "bg-ch-surface-elevated text-ch-text-secondary",
 };
 
 export function Badge({
@@ -15,7 +15,7 @@ export function Badge({
   variant?: BadgeVariant;
 }) {
   return (
-    <span className={`inline-flex rounded-md px-2 py-0.5 text-xs font-medium ${styles[variant]}`}>
+    <span className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium ${styles[variant]}`}>
       {children}
     </span>
   );

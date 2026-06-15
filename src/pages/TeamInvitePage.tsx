@@ -27,14 +27,14 @@ export function TeamInvitePage() {
 
   if (!user) {
     return (
-      <div className="flex min-h-screen items-center justify-center text-zinc-400">
+      <div className="flex min-h-screen items-center justify-center text-ch-text-secondary">
         Sign in to accept this invite.
       </div>
     );
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center text-zinc-400">
+    <div className="flex min-h-screen items-center justify-center text-ch-text-secondary">
       {error ? `Invite error: ${error}` : "Accepting invite…"}
     </div>
   );

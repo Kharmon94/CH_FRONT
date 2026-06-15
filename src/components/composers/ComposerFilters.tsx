@@ -27,10 +27,10 @@ export function ComposerFilters({
             key={item || "all"}
             type="button"
             onClick={() => onModeChange(item)}
-            className={`rounded-md px-3 py-1.5 text-xs font-medium ${
+            className={`rounded-full px-3 py-1.5 text-xs font-medium transition ${
               mode === item
-                ? "bg-emerald-600 text-white"
-                : "bg-zinc-800 text-zinc-300 hover:bg-zinc-700"
+                ? "bg-ch-primary text-ch-on-primary"
+                : "bg-ch-surface-elevated text-ch-text-secondary hover:text-ch-text"
             }`}
           >
             {item || "all"}

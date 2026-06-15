@@ -48,12 +48,12 @@ export function BillingPage() {
   }
 
   if (loading && !license) {
-    return <p className="text-sm text-zinc-500">Loading billing…</p>;
+    return <p className="text-sm text-ch-text-secondary">Loading billing…</p>;
   }
 
   if (!isOwner) {
     return (
-      <p className="text-sm text-zinc-400">
+      <p className="text-sm text-ch-text-secondary">
         Only team owners can manage billing. Ask your team owner to upgrade {team?.name}.
       </p>
     );
@@ -64,7 +64,7 @@ export function BillingPage() {
       <h1 className="text-2xl font-semibold">Billing — {team?.name}</h1>
 
       {message && (
-        <div className="rounded-md border border-emerald-500/40 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-300">
+        <div className="rounded-md border border-ch-primary/40 bg-ch-primary/10 px-4 py-3 text-sm text-ch-primary">
           {message}
         </div>
       )}
@@ -79,7 +79,7 @@ export function BillingPage() {
         <p className="mt-2 text-3xl font-bold capitalize">{license?.tier ?? "free"}</p>
         {license?.pro ? (
           <>
-            <p className="mt-2 text-sm text-emerald-400">Pro — unlimited exports + Agent Clone for all team members</p>
+            <p className="mt-2 text-sm text-ch-primary">Pro — unlimited exports + Agent Clone for all team members</p>
             <Button
               variant="secondary"
               className="mt-4"
@@ -96,7 +96,7 @@ export function BillingPage() {
             </Button>
           </>
         ) : (
-          <p className="mt-2 text-sm text-zinc-400">
+          <p className="mt-2 text-sm text-ch-text-secondary">
             Free — {license?.exports_remaining ?? 0} markdown export
             {(license?.exports_remaining ?? 0) === 1 ? "" : "s"} remaining for this team
           </p>
@@ -104,9 +104,9 @@ export function BillingPage() {
       </Card>
 
       {!license?.pro && (
-        <Card className="border-emerald-500/40">
-          <h2 className="text-lg font-semibold text-emerald-400">Upgrade team to Pro</h2>
-          <p className="mt-2 text-sm text-zinc-400">
+        <Card className="border-ch-primary/40">
+          <h2 className="text-lg font-semibold text-ch-primary">Upgrade team to Pro</h2>
+          <p className="mt-2 text-sm text-ch-text-secondary">
             $7/month or $50/year — Agent Clone + unlimited exports for everyone on the team
           </p>
           <div className="mt-4 flex flex-wrap gap-3">

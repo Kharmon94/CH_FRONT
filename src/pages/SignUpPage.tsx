@@ -1,6 +1,7 @@
 import { type FormEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import { AuthCard, AuthChrome } from "../components/layout/AuthChrome";
 import { Button } from "../components/ui/Button";
 import { Input } from "../components/ui/Input";
 
@@ -28,28 +29,28 @@ export function SignUpPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-950 px-4">
-      <div className="w-full max-w-md rounded-xl border border-zinc-800/80 bg-zinc-900/60 p-8 backdrop-blur">
-        <h1 className="text-2xl font-semibold text-white">Create account</h1>
-        <p className="mt-2 text-sm text-zinc-400">Start exporting your Cursor chats</p>
+    <AuthChrome>
+      <AuthCard>
+        <h1 className="text-2xl font-semibold text-ch-text">Create account</h1>
+        <p className="mt-2 text-sm text-ch-text-secondary">Start exporting your Cursor chats</p>
 
         {error && (
-          <p className="mt-4 rounded-md border border-red-500/30 bg-red-500/10 px-3 py-2 text-sm text-red-300">
+          <p className="mt-4 rounded-xl border border-red-500/30 bg-red-500/10 px-3 py-2 text-sm text-red-500">
             {error}
           </p>
         )}
 
         <form onSubmit={onSubmit} className="mt-6 space-y-4">
           <div>
-            <label className="mb-1 block text-xs text-zinc-400">Name (optional)</label>
+            <label className="mb-1 block text-xs text-ch-text-secondary">Name (optional)</label>
             <Input value={name} onChange={(e) => setName(e.target.value)} />
           </div>
           <div>
-            <label className="mb-1 block text-xs text-zinc-400">Email</label>
+            <label className="mb-1 block text-xs text-ch-text-secondary">Email</label>
             <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
           </div>
           <div>
-            <label className="mb-1 block text-xs text-zinc-400">Password</label>
+            <label className="mb-1 block text-xs text-ch-text-secondary">Password</label>
             <Input
               type="password"
               value={password}
@@ -63,13 +64,13 @@ export function SignUpPage() {
           </Button>
         </form>
 
-        <p className="mt-6 text-center text-sm text-zinc-500">
+        <p className="mt-6 text-center text-sm text-ch-text-secondary">
           Already have an account?{" "}
-          <Link to="/app/login" className="text-emerald-400 hover:text-emerald-300">
+          <Link to="/app/login" className="text-ch-primary hover:opacity-80">
             Sign in
           </Link>
         </p>
-      </div>
-    </div>
+      </AuthCard>
+    </AuthChrome>
   );
 }

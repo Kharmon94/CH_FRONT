@@ -48,22 +48,22 @@ export function AdminTeamsPage() {
       <h1 className="text-2xl font-semibold">Teams</h1>
 
       {error && <p className="mt-4 text-sm text-red-400">{error}</p>}
-      {message && <p className="mt-4 text-sm text-emerald-400">{message}</p>}
-      {loading && <p className="mt-4 text-sm text-zinc-500">Loading teams…</p>}
+      {message && <p className="mt-4 text-sm text-ch-primary">{message}</p>}
+      {loading && <p className="mt-4 text-sm text-ch-text-secondary">Loading teams…</p>}
 
       {!loading && teams.length === 0 && !error && (
-        <p className="mt-4 text-sm text-zinc-500">No teams found.</p>
+        <p className="mt-4 text-sm text-ch-text-secondary">No teams found.</p>
       )}
 
       <ul className="mt-4 space-y-3 text-sm">
         {teams.map((t) => (
           <li
             key={t.id}
-            className="flex flex-wrap items-center justify-between gap-3 rounded-md border border-zinc-800 px-3 py-3"
+            className="flex flex-wrap items-center justify-between gap-3 rounded-md border border-ch-border px-3 py-3"
           >
             <div>
               <span className="font-medium">{t.name}</span>
-              <span className="ml-2 text-zinc-500">
+              <span className="ml-2 text-ch-text-secondary">
                 {t.member_count} members · {t.export_count} exports
               </span>
             </div>
@@ -71,7 +71,7 @@ export function AdminTeamsPage() {
               <select
                 value={tiers[t.id] ?? t.license.tier}
                 onChange={(e) => setTiers((prev) => ({ ...prev, [t.id]: e.target.value }))}
-                className="rounded-md border border-zinc-700 bg-zinc-900 px-2 py-1 text-sm text-zinc-200"
+                className="rounded-md border border-ch-border bg-ch-surface-elevated px-2 py-1 text-sm text-ch-text"
               >
                 <option value="free">Free</option>
                 <option value="pro">Pro</option>

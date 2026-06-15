@@ -57,15 +57,15 @@ export function SettingsPage() {
   }
 
   if (!user) {
-    return <p className="text-sm text-zinc-500">Loading…</p>;
+    return <p className="text-sm text-ch-text-secondary">Loading…</p>;
   }
 
   return (
     <div className="mx-auto max-w-2xl space-y-6">
       <h1 className="text-2xl font-semibold">Settings</h1>
-      <p className="text-sm text-zinc-400">{user.email}</p>
+      <p className="text-sm text-ch-text-secondary">{user.email}</p>
 
-      {message && <p className="text-sm text-emerald-400">{message}</p>}
+      {message && <p className="text-sm text-ch-primary">{message}</p>}
       {error && <p className="text-sm text-red-400">{error}</p>}
 
       <Card>
@@ -75,14 +75,14 @@ export function SettingsPage() {
             <img
               src={avatarPreview}
               alt=""
-              className="h-16 w-16 rounded-full border border-zinc-700 object-cover"
+              className="h-16 w-16 rounded-full border border-ch-border object-cover"
             />
           ) : (
-            <div className="flex h-16 w-16 items-center justify-center rounded-full border border-zinc-700 bg-zinc-800 text-lg text-zinc-400">
+            <div className="flex h-16 w-16 items-center justify-center rounded-full border border-ch-border bg-ch-surface-elevated text-lg text-ch-text-secondary">
               {(user.name ?? user.email).charAt(0).toUpperCase()}
             </div>
           )}
-          <label className="cursor-pointer text-sm text-emerald-400 hover:text-emerald-300">
+          <label className="cursor-pointer text-sm text-ch-primary hover:text-ch-primary">
             Upload image
             <input type="file" accept="image/*" className="hidden" onChange={onAvatarChange} />
           </label>

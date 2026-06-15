@@ -30,7 +30,7 @@ export function OAuthGoogleCallbackPage() {
   }, [params, navigate, refreshMe]);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-950 text-zinc-400">
+    <div className="flex min-h-screen items-center justify-center bg-ch-bg text-ch-text-secondary">
       Completing sign-in…
     </div>
   );

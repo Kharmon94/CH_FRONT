@@ -21,6 +21,8 @@ type TeamContextValue = {
 
 const TeamContext = createContext<TeamContextValue | undefined>(undefined);
 
+export { TeamContext };
+
 export function TeamProvider({ children }: { children: ReactNode }) {
   const { user } = useAuth();
   const [teams, setTeams] = useState<TeamDetail[]>([]);

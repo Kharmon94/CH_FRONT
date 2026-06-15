@@ -1,0 +1,66 @@
+@layer components {
+  .ch-animate-breathe {
+    animation: ch-breathe 2.4s ease-in-out infinite;
+  }
+
+  .ch-skeleton-shimmer {
+    position: relative;
+    overflow: hidden;
+    background: var(--ch-surface-elevated);
+  }
+
+  .ch-skeleton-shimmer::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      color-mix(in srgb, var(--ch-primary) 12%, transparent) 50%,
+      transparent 100%
+    );
+    animation: ch-shimmer 1.6s ease-in-out infinite;
+    transform: translateX(-100%);
+  }
+
+  .ch-reduced-motion .ch-animate-breathe,
+  .ch-reduced-motion .ch-skeleton-shimmer::after {
+    animation: none;
+  }
+
+  .ch-reduced-motion .ch-skeleton-shimmer::after {
+    opacity: 0.35;
+    transform: none;
+  }
+}
+
+@keyframes ch-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.04);
+  }
+}
+
+@keyframes ch-shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ch-animate-breathe,
+  .ch-skeleton-shimmer::after {
+    animation: none !important;
+  }
+
+  .ch-skeleton-shimmer::after {
+    opacity: 0.35;
+    transform: none;
+  }
+}

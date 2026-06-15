@@ -14,10 +14,10 @@ export function FormatSelector({
       <button
         type="button"
         onClick={() => onChange("markdown")}
-        className={`rounded-md border px-4 py-2 text-sm ${
+        className={`rounded-xl border px-4 py-2 text-sm transition ${
           value === "markdown"
-            ? "border-emerald-500 bg-emerald-500/10 text-emerald-400"
-            : "border-zinc-700 text-zinc-300 hover:border-zinc-600"
+            ? "border-ch-primary bg-ch-primary/10 text-ch-primary"
+            : "border-ch-border text-ch-text-secondary hover:border-ch-primary/50"
         }`}
       >
         Markdown
@@ -26,10 +26,10 @@ export function FormatSelector({
         <button
           type="button"
           onClick={() => onChange("agent_clone")}
-          className={`rounded-md border px-4 py-2 text-sm ${
+          className={`rounded-xl border px-4 py-2 text-sm transition ${
             value === "agent_clone"
-              ? "border-violet-500 bg-violet-500/10 text-violet-400"
-              : "border-zinc-700 text-zinc-300 hover:border-zinc-600"
+              ? "border-ch-accent bg-ch-accent/10 text-ch-accent"
+              : "border-ch-border text-ch-text-secondary hover:border-ch-accent/50"
           }`}
         >
           Agent Clone

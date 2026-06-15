@@ -51,7 +51,7 @@ export function ExportPanel({
         showAgentClone={license?.pro ?? false}
       />
       {format === "agent_clone" && composer.same_name_session_count > 1 && (
-        <p className="mt-3 text-sm text-violet-300">
+        <p className="mt-3 text-sm text-ch-accent">
           Bundles {composer.same_name_session_count} sessions · PRIMARY: {composer.mode}
           {composer.is_primary ? " (this session)" : ""}
         </p>
@@ -70,7 +70,7 @@ export function ExportPanel({
           {forbidden && (
             <>
               {" "}
-              <Link to="/app/billing" className="text-emerald-400 hover:underline">
+              <Link to="/app/billing" className="text-ch-primary hover:underline">
                 Upgrade to Pro
               </Link>
             </>

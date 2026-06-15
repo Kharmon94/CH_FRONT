@@ -34,23 +34,23 @@ export function TeamSettingsPage() {
   }
 
   if (!team || team.id !== teamId) {
-    return <p className="text-sm text-zinc-500">Loading team…</p>;
+    return <p className="text-sm text-ch-text-secondary">Loading team…</p>;
   }
 
   return (
     <div className="mx-auto max-w-2xl space-y-6">
       <h1 className="text-2xl font-semibold">{team.name}</h1>
 
-      {message && <p className="text-sm text-emerald-400">{message}</p>}
+      {message && <p className="text-sm text-ch-primary">{message}</p>}
       {error && <p className="text-sm text-red-400">{error}</p>}
 
       <Card>
         <h2 className="text-lg font-semibold">Members</h2>
-        <ul className="mt-3 space-y-2 text-sm text-zinc-300">
+        <ul className="mt-3 space-y-2 text-sm text-ch-text">
           {members.map((m) => (
             <li key={m.id} className="flex justify-between">
               <span>{m.email}</span>
-              <span className="text-zinc-500">{m.role}</span>
+              <span className="text-ch-text-secondary">{m.role}</span>
             </li>
           ))}
         </ul>
@@ -75,7 +75,7 @@ export function TeamSettingsPage() {
           </Card>
           <Link
             to={`/app/teams/${teamId}/billing`}
-            className="inline-block text-sm text-emerald-400 hover:text-emerald-300"
+            className="inline-block text-sm text-ch-primary hover:text-ch-primary"
             onClick={() => refreshTeams()}
           >
             Team billing →

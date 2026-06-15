@@ -20,19 +20,19 @@ export function ComposerDetailPage() {
   }, [id, linkedDatabaseId]);
 
   if (error) return <p className="text-red-400">{error}</p>;
-  if (!composer) return <p className="text-zinc-500">Loading…</p>;
+  if (!composer) return <p className="text-ch-text-secondary">Loading…</p>;
 
   return (
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-semibold">{composer.name}</h1>
         <div className="mt-3 flex flex-wrap gap-2">
-          <Badge variant="emerald">{composer.mode}</Badge>
+          <Badge variant="primary">{composer.mode}</Badge>
           <Badge>{composer.status}</Badge>
           <Badge variant="muted">{composer.message_count} messages</Badge>
-          {composer.is_primary && <Badge variant="violet">PRIMARY</Badge>}
+          {composer.is_primary && <Badge variant="accent">PRIMARY</Badge>}
         </div>
-        <p className="mt-2 font-mono text-xs text-zinc-500">{composer.id}</p>
+        <p className="mt-2 font-mono text-xs text-ch-text-secondary">{composer.id}</p>
       </div>
       <ExportPanel composer={composer} linkedDatabaseId={linkedDatabaseId} />
     </div>

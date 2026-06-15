@@ -18,11 +18,11 @@ export function ComposersPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-semibold">Composers</h1>
-        {db && <span className="text-sm text-zinc-500">{total} total</span>}
+        {db && <span className="text-sm text-ch-text-secondary">{total} total</span>}
       </div>
 
       {!db ? (
-        <p className="text-sm text-zinc-500">Link a database on the Dashboard first.</p>
+        <p className="text-sm text-ch-text-secondary">Link a database on the Dashboard first.</p>
       ) : (
         <>
           <ComposerFilters
@@ -32,7 +32,7 @@ export function ComposersPage() {
             onModeChange={setMode}
           />
           {error && <p className="text-sm text-red-400">{error}</p>}
-          {loading ? <p className="text-sm text-zinc-500">Loading…</p> : <ComposerTable composers={composers} />}
+          {loading ? <p className="text-sm text-ch-text-secondary">Loading…</p> : <ComposerTable composers={composers} />}
         </>
       )}
     </div>

@@ -35,20 +35,20 @@ export function DashboardPage() {
       </Card>
 
       {loading && !active ? (
-        <p className="text-sm text-zinc-500">Loading…</p>
+        <p className="text-sm text-ch-text-secondary">Loading…</p>
       ) : active ? (
         <Card>
           <div className="flex items-start justify-between gap-4">
             <div>
               <h2 className="text-lg font-medium">Linked database</h2>
-              <p className="mt-2 font-mono text-xs text-zinc-400 break-all">{active.path}</p>
+              <p className="mt-2 font-mono text-xs text-ch-text-secondary break-all">{active.path}</p>
               <dl className="mt-4 grid grid-cols-2 gap-4 text-sm">
                 <div>
-                  <dt className="text-zinc-500">Composers</dt>
+                  <dt className="text-ch-text-secondary">Composers</dt>
                   <dd className="text-xl font-semibold">{active.composer_count}</dd>
                 </div>
                 <div>
-                  <dt className="text-zinc-500">Index status</dt>
+                  <dt className="text-ch-text-secondary">Index status</dt>
                   <dd className="capitalize">{active.index_status}</dd>
                 </div>
               </dl>

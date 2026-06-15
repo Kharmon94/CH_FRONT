@@ -1,6 +1,7 @@
 import { type FormEvent, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import { AuthCard, AuthChrome } from "../components/layout/AuthChrome";
 import { Button } from "../components/ui/Button";
 import { Input } from "../components/ui/Input";
 
@@ -28,20 +29,20 @@ export function AdminLoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-950 px-4">
-      <div className="w-full max-w-md rounded-xl border border-zinc-800/80 bg-zinc-900/60 p-8">
-        <span className="rounded-md bg-amber-500/15 px-2 py-1 text-xs font-medium text-amber-400">
+    <AuthChrome>
+      <AuthCard>
+        <span className="rounded-full bg-ch-accent/15 px-2.5 py-1 text-xs font-medium text-ch-accent">
           Admin
         </span>
-        <h1 className="mt-4 text-2xl font-semibold">Admin sign in</h1>
-        {error && <p className="mt-4 text-sm text-red-400">{error}</p>}
+        <h1 className="mt-4 text-2xl font-semibold text-ch-text">Admin sign in</h1>
+        {error && <p className="mt-4 text-sm text-red-500">{error}</p>}
         <form onSubmit={onSubmit} className="mt-6 space-y-4">
           <div>
-            <label className="mb-1 block text-xs text-zinc-400">Email</label>
+            <label className="mb-1 block text-xs text-ch-text-secondary">Email</label>
             <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
           </div>
           <div>
-            <label className="mb-1 block text-xs text-zinc-400">Password</label>
+            <label className="mb-1 block text-xs text-ch-text-secondary">Password</label>
             <Input
               type="password"
               value={password}
@@ -53,7 +54,7 @@ export function AdminLoginPage() {
             {loading ? "Signing in…" : "Sign in"}
           </Button>
         </form>
-      </div>
-    </div>
+      </AuthCard>
+    </AuthChrome>
   );
 }
