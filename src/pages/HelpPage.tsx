@@ -6,17 +6,17 @@ const faqs: Array<{ question: string; answer: string }> = [
   {
     question: "What is Cursor Help?",
     answer:
-      "Cursor Help reads your local Cursor state.db, indexes your composer sessions, and lets you search, export markdown, or generate Agent Clone handoff files so you can continue in a fresh agent chat.",
+      "Cursor Help reads your local Cursor database, indexes your composer sessions, and lets you search, export markdown, or generate Agent Clone handoff files so you can continue in a fresh agent chat.",
   },
   {
     question: "Does Cursor Help upload my database?",
     answer:
-      "No. Your state.db stays on your machine. Cursor Help reads it locally via the API you run (or our hosted app pointing at your linked path). We do not upload raw chat databases to our servers.",
+      "No. Your Cursor database stays on your machine. Cursor Help reads it locally via the API you run (or our hosted app pointing at your linked path). We do not upload raw chat databases to our servers.",
   },
   {
     question: "How do I link my database?",
     answer:
-      "Sign in, open the app dashboard, and paste the path to your Cursor state.db (or use the file picker if available). The API indexes composers in the background — refresh the dashboard to see status.",
+      "Sign in, open the app dashboard, and paste the path to your Cursor database (or use the file picker if available). The API indexes composers in the background — refresh the dashboard to see status.",
   },
   {
     question: "What is Agent Clone?",

@@ -9,7 +9,7 @@ export function PrivacyPage() {
       <Card className="ch-rich-text mt-8 space-y-4 text-sm">
         <p>
           Cursor Help is local-first. Your Cursor database is read from a path you provide on
-          your own machine. We do not upload your raw state.db to our servers.
+          your own machine. We do not upload your raw Cursor database to our servers.
         </p>
         <p>
           Export files are written to your local API storage directory. You control where your

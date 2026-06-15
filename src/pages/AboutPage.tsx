@@ -17,8 +17,7 @@ export function AboutPage() {
         <Card className="space-y-3 text-sm text-ch-text-secondary">
           <h2 className="text-lg font-semibold text-ch-text">What we do</h2>
           <p>
-            Point Cursor Help at your local Cursor <code className="text-ch-primary">state.db</code>.
-            We index composers on your machine, let you search every chat, and export markdown or
+            Point Cursor Help at your local Cursor database on your machine. We index composers on your machine, let you search every chat, and export markdown or
             Agent Clone handoff files — without uploading your database to our servers.
           </p>
         </Card>

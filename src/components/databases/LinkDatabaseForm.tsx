@@ -26,15 +26,15 @@ export function LinkDatabaseForm({ onLinked }: { onLinked: () => void }) {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <label className="mb-2 block text-sm text-ch-text-secondary">Path to state.db</label>
+        <label className="mb-2 block text-sm text-ch-text-secondary">Path to Cursor database</label>
         <Input
           value={path}
           onChange={(e) => setPath(e.target.value)}
-          placeholder="/home/you/.../state.db"
+          placeholder="/path/to/your/cursor/database"
           className="font-mono text-xs"
         />
         <p className="mt-2 text-xs text-ch-text-secondary">
-          WSL example: /mnt/c/Users/you/chat history/state.db — close Cursor first.
+          WSL example: /mnt/c/Users/you/AppData/Roaming/Cursor/User/globalStorage/ — close Cursor first.
         </p>
       </div>
       {error && <p className="text-sm text-red-500">{error}</p>}

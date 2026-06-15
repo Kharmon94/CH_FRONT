@@ -5,7 +5,7 @@ import { Card } from "../components/ui/Card";
 import { DURATION, EASE_CH, STAGGER_CONTAINER, STAGGER_ITEM } from "../lib/motion";
 
 const features = [
-  ["Link your state.db", "Point Cursor Help at your local Cursor database. Nothing uploads."],
+  ["Link your Cursor database", "Point Cursor Help at your local Cursor database. Nothing uploads."],
   ["Search every chat", "Find the session you need — even across 10 GB of history."],
   ["Agent Clone export", "Bundle same-name sessions into one handoff file for a fresh agent."],
 ] as const;
