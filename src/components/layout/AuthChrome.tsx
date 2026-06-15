@@ -10,7 +10,7 @@ export function AuthChrome({ children }: { children: ReactNode }) {
 
 export function AuthCard({ children }: { children: ReactNode }) {
   return (
-    <div className="w-full max-w-md rounded-3xl border border-ch-border bg-ch-surface/80 p-8 backdrop-blur">
+    <div className="w-full max-w-md rounded-xl border border-ch-border bg-ch-surface p-8">
       {children}
     </div>
   );

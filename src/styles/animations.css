@@ -16,7 +16,7 @@
     background: linear-gradient(
       90deg,
       transparent 0%,
-      color-mix(in srgb, var(--ch-primary) 12%, transparent) 50%,
+      color-mix(in srgb, var(--ch-text) 8%, transparent) 50%,
       transparent 100%
     );
     animation: ch-shimmer 1.6s ease-in-out infinite;

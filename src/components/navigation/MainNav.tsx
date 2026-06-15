@@ -118,7 +118,7 @@ export function MainNav({
 
   return (
     <nav className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2">
-      <div className="rounded-full border border-ch-border bg-ch-surface/85 px-3 py-2 shadow-lg backdrop-blur-xl">
+      <div className="rounded-xl border border-ch-border bg-ch-surface/90 px-2 py-2 shadow-lg backdrop-blur-xl">
         <div className="flex items-center gap-1">
           {tabs.map((tab) => {
             const active = isTabActive(location.pathname, tab);
@@ -127,9 +127,9 @@ export function MainNav({
               <Link
                 key={tab.key}
                 to={tab.to}
-                className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm tracking-wider transition-colors ${
+                className={`inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm transition-colors ${
                   active
-                    ? "bg-ch-primary/15 text-ch-primary"
+                    ? "bg-ch-surface-elevated text-ch-text"
                     : "text-ch-text-secondary hover:text-ch-text"
                 }`}
               >
@@ -141,7 +141,7 @@ export function MainNav({
           <button
             type="button"
             onClick={onMoreClick}
-            className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm tracking-wider text-ch-text-secondary transition-colors hover:text-ch-text"
+            className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm text-ch-text-secondary transition-colors hover:text-ch-text"
           >
             <MoreHorizontal className="h-4 w-4" />
             More

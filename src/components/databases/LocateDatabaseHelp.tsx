@@ -40,7 +40,7 @@ export function LocateDatabaseHelpButton({ className = "" }: { className?: strin
 
       <dialog
         ref={dialogRef}
-        className="w-[min(100%,32rem)] rounded-3xl border border-ch-border bg-ch-surface p-0 text-ch-text shadow-2xl backdrop:bg-black/60"
+        className="w-[min(100%,32rem)] rounded-xl border border-ch-border bg-ch-surface p-0 text-ch-text shadow-2xl backdrop:bg-black/60"
         onClose={() => setOpen(false)}
       >
         <div className="border-b border-ch-border px-6 py-4">
@@ -64,7 +64,7 @@ export function LocateDatabaseHelpButton({ className = "" }: { className?: strin
         </div>
 
         <div className="px-6 pt-4">
-          <div className="rounded-2xl border border-ch-primary/30 bg-ch-primary/10 px-4 py-3">
+          <div className="rounded-xl border border-ch-border bg-ch-surface-elevated px-4 py-3">
             <p className="text-sm font-medium text-ch-text">Recommendation</p>
             <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-ch-text-secondary">
               {LOCATE_DATABASE_RECOMMENDATIONS.map((item) => (

@@ -1,39 +1,43 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --font-size: 16px;
-  --font-display: "Syne", "Space Grotesk", ui-sans-serif, sans-serif;
-  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-size: 15px;
+  --font-display: "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 
-  --ch-primary: #0891b2;
-  --ch-accent: #7c3aed;
+  /* Light — Linear-inspired neutral surfaces */
+  --ch-primary: #171717;
+  --ch-accent: #5e6ad2;
   --ch-bg: #f7f7f8;
   --ch-surface: #ffffff;
-  --ch-surface-elevated: #f0f0f2;
-  --ch-text: #0a0a0a;
-  --ch-text-secondary: rgba(60, 60, 67, 0.65);
-  --ch-border: rgba(0, 0, 0, 0.1);
-  --ch-on-primary: #0a0a0a;
-  --overlay: rgba(0, 0, 0, 0.45);
+  --ch-surface-elevated: #efefef;
+  --ch-text: #171717;
+  --ch-text-secondary: #6b6f76;
+  --ch-border: rgba(0, 0, 0, 0.08);
+  --ch-on-primary: #ffffff;
+  --ch-ring: rgba(0, 0, 0, 0.12);
+  --overlay: rgba(0, 0, 0, 0.4);
 }
 
 .dark {
-  --ch-primary: #22d3ee;
-  --ch-accent: #a78bfa;
-  --ch-bg: #0a0a0f;
-  --ch-surface: #14141a;
-  --ch-surface-elevated: #1c1c24;
-  --ch-text: #f4f4f5;
-  --ch-text-secondary: rgba(235, 235, 245, 0.6);
-  --ch-border: rgba(255, 255, 255, 0.1);
+  /* Dark — Cursor / Linear companion palette */
+  --ch-primary: #ededed;
+  --ch-accent: #5e6ad2;
+  --ch-bg: #0a0a0a;
+  --ch-surface: #111111;
+  --ch-surface-elevated: #1a1a1a;
+  --ch-text: #ededed;
+  --ch-text-secondary: rgba(255, 255, 255, 0.55);
+  --ch-border: rgba(255, 255, 255, 0.08);
   --ch-on-primary: #0a0a0a;
-  --overlay: rgba(0, 0, 0, 0.6);
+  --ch-ring: rgba(255, 255, 255, 0.16);
+  --overlay: rgba(0, 0, 0, 0.65);
 }
 
 @theme inline {
   --font-sans: var(--font-body);
   --font-display: var(--font-display);
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-mono: "JetBrains Mono", "SF Mono", ui-monospace, monospace;
   --color-ch-primary: var(--ch-primary);
   --color-ch-accent: var(--ch-accent);
   --color-ch-bg: var(--ch-bg);
@@ -43,6 +47,7 @@
   --color-ch-text-secondary: var(--ch-text-secondary);
   --color-ch-border: var(--ch-border);
   --color-ch-on-primary: var(--ch-on-primary);
+  --color-ch-ring: var(--ch-ring);
   --color-overlay: var(--overlay);
 }
 
@@ -59,6 +64,13 @@
   body {
     @apply bg-ch-bg text-ch-text font-sans antialiased;
     font-family: var(--font-body);
+    letter-spacing: -0.011em;
+  }
+
+  :where(h1, h2, h3, h4) {
+    font-family: var(--font-display);
+    letter-spacing: -0.025em;
+    font-weight: 600;
   }
 }
 
@@ -79,10 +91,11 @@
     margin-top: 1.25em;
     margin-bottom: 0.5em;
     line-height: 1.2;
+    letter-spacing: -0.025em;
   }
 
   .ch-rich-text :where(a) {
-    color: var(--ch-primary);
+    color: var(--ch-accent);
     text-decoration: underline;
     text-underline-offset: 2px;
   }
@@ -99,12 +112,12 @@
   .ch-rich-text :where(code) {
     font-size: 0.875em;
     background: var(--ch-surface-elevated);
-    border-radius: 0.25rem;
+    border-radius: 0.375rem;
     padding: 0.125rem 0.375rem;
   }
 
   .ch-rich-text :where(blockquote) {
-    border-left: 3px solid var(--ch-border);
+    border-left: 2px solid var(--ch-border);
     padding-left: 1rem;
     color: var(--ch-text-secondary);
   }

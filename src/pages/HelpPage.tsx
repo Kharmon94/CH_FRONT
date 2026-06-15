@@ -59,7 +59,7 @@ export function HelpPage() {
           paste its path manually. If browse cannot resolve the path automatically, use the locations
           below.
         </p>
-        <div className="rounded-2xl border border-ch-primary/30 bg-ch-primary/10 px-4 py-3">
+        <div className="rounded-xl border border-ch-border bg-ch-surface-elevated px-4 py-3">
           <p className="text-sm font-medium text-ch-text">Recommendation</p>
           <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-ch-text-secondary">
             {LOCATE_DATABASE_RECOMMENDATIONS.map((item) => (

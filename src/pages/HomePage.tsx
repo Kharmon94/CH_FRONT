@@ -62,7 +62,7 @@ export function HomePage() {
       <section className="relative overflow-hidden pb-12 text-center sm:pb-20">
         <div
           aria-hidden
-          className="pointer-events-none absolute left-1/2 top-0 h-80 w-[min(100vw,56rem)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-ch-primary/25 blur-3xl"
+          className="pointer-events-none absolute left-1/2 top-0 h-72 w-[min(100vw,48rem)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-ch-text/[0.04] blur-3xl dark:bg-white/[0.06]"
         />
         <motion.div
           className="relative pt-16 sm:pt-24 md:pt-28"
@@ -70,7 +70,7 @@ export function HomePage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: DURATION.hero, ease: EASE_CH }}
         >
-          <p className="text-sm font-medium text-ch-accent">
+          <p className="text-sm font-medium text-ch-text-secondary">
             Built for developers who hit agent dead-ends
           </p>
           <h1
@@ -108,15 +108,15 @@ export function HomePage() {
         {features.map(([title, body]) => (
           <motion.div key={title} variants={STAGGER_ITEM}>
             <Card>
-              <h3 className="text-lg font-semibold text-ch-primary">{title}</h3>
+              <h3 className="text-lg font-semibold text-ch-text">{title}</h3>
               <p className="mt-2 text-sm text-ch-text-secondary">{body}</p>
             </Card>
           </motion.div>
         ))}
       </motion.section>
 
-      <section className="mt-16 rounded-3xl border border-ch-accent/30 bg-ch-accent/5 p-8">
-        <h2 className="text-2xl font-semibold text-ch-accent" style={{ fontFamily: "var(--font-display)" }}>
+      <section className="mt-16 rounded-xl border border-ch-border bg-ch-surface-elevated/50 p-8">
+        <h2 className="text-2xl font-semibold text-ch-text" style={{ fontFamily: "var(--font-display)" }}>
           Agent Clone
         </h2>
         <p className="mt-3 max-w-3xl text-ch-text-secondary">
@@ -128,7 +128,7 @@ export function HomePage() {
           <li>Open a fresh Cursor Agent chat</li>
           <li>Paste the Start here prompt and attach the file</li>
         </ol>
-        <Link to="/help" className="mt-6 inline-block text-sm font-medium text-ch-primary hover:underline">
+        <Link to="/help" className="mt-6 inline-block text-sm font-medium text-ch-accent hover:underline">
           Learn more in Help &amp; FAQ →
         </Link>
       </section>
