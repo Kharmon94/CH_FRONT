@@ -40,7 +40,7 @@ export function LocateDatabaseHelpButton({ className = "" }: { className?: strin
 
       <dialog
         ref={dialogRef}
-        className="w-[min(100%,32rem)] rounded-xl border border-ch-border bg-ch-surface p-0 text-ch-text shadow-2xl backdrop:bg-black/60"
+        className="fixed left-1/2 top-1/2 m-0 max-h-[min(90vh,100%)] w-[min(calc(100%-2rem),32rem)] -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-xl border border-ch-border bg-ch-surface p-0 text-ch-text shadow-2xl backdrop:bg-black/60"
         onClose={() => setOpen(false)}
       >
         <div className="border-b border-ch-border px-6 py-4">
