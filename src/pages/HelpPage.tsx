@@ -4,7 +4,7 @@ import { JsonLd } from "../components/seo/JsonLd";
 import { Card } from "../components/ui/Card";
 import { Button } from "../components/ui/Button";
 import { HELP_FAQS } from "../lib/helpFaqs";
-import { LOCATE_DATABASE_STEPS, type LocatePlatform } from "../lib/locateDatabaseHelp";
+import { LOCATE_DATABASE_STEPS, LOCATE_DATABASE_RECOMMENDATIONS, type LocatePlatform } from "../lib/locateDatabaseHelp";
 
 function FaqItem({ question, answer }: { question: string; answer: string }) {
   return (
@@ -55,10 +55,18 @@ export function HelpPage() {
       <Card id="locate-database" className="mt-10 scroll-mt-24 space-y-4">
         <h2 className="text-lg font-semibold text-ch-text">Locate your Cursor database</h2>
         <p className="text-sm text-ch-text-secondary">
-          Close Cursor before linking. On the Dashboard, browse for{" "}
-          <span className="font-mono text-ch-text">state.vscdb</span> or paste its path manually. If
-          browse cannot resolve the path automatically, use the locations below.
+          On the Dashboard, browse for <span className="font-mono text-ch-text">state.vscdb</span> or
+          paste its path manually. If browse cannot resolve the path automatically, use the locations
+          below.
         </p>
+        <div className="rounded-2xl border border-ch-primary/30 bg-ch-primary/10 px-4 py-3">
+          <p className="text-sm font-medium text-ch-text">Recommendation</p>
+          <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-ch-text-secondary">
+            {LOCATE_DATABASE_RECOMMENDATIONS.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </div>
         <div className="grid gap-4 md:grid-cols-2">
           {(Object.keys(LOCATE_DATABASE_STEPS) as LocatePlatform[]).map((key) => {
             const section = LOCATE_DATABASE_STEPS[key];
@@ -78,11 +86,13 @@ export function HelpPage() {
                     </li>
                   ))}
                 </ul>
-                <ul className="list-disc space-y-1 pl-5 text-xs text-ch-text-secondary">
-                  {section.notes.map((note) => (
-                    <li key={note}>{note}</li>
-                  ))}
-                </ul>
+                {section.notes.length > 0 && (
+                  <ul className="list-disc space-y-1 pl-5 text-xs text-ch-text-secondary">
+                    {section.notes.map((note) => (
+                      <li key={note}>{note}</li>
+                    ))}
+                  </ul>
+                )}
               </div>
             );
           })}

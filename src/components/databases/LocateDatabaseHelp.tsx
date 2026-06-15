@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../ui/Button";
-import { LOCATE_DATABASE_STEPS, type LocatePlatform } from "../../lib/locateDatabaseHelp";
+import { LOCATE_DATABASE_STEPS, LOCATE_DATABASE_RECOMMENDATIONS, type LocatePlatform } from "../../lib/locateDatabaseHelp";
 
 const PLATFORMS: LocatePlatform[] = ["wsl", "windows", "mac", "linux"];
 
@@ -64,7 +64,16 @@ export function LocateDatabaseHelpButton({ className = "" }: { className?: strin
         </div>
 
         <div className="px-6 pt-4">
-          <div className="flex flex-wrap gap-2">
+          <div className="rounded-2xl border border-ch-primary/30 bg-ch-primary/10 px-4 py-3">
+            <p className="text-sm font-medium text-ch-text">Recommendation</p>
+            <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-ch-text-secondary">
+              {LOCATE_DATABASE_RECOMMENDATIONS.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="mt-4 flex flex-wrap gap-2">
             {PLATFORMS.map((key) => (
               <button
                 key={key}
@@ -93,11 +102,13 @@ export function LocateDatabaseHelpButton({ className = "" }: { className?: strin
                 </li>
               ))}
             </ul>
-            <ul className="list-disc space-y-1 pl-5 text-sm text-ch-text-secondary">
-              {content.notes.map((note) => (
-                <li key={note}>{note}</li>
-              ))}
-            </ul>
+            {content.notes.length > 0 && (
+              <ul className="list-disc space-y-1 pl-5 text-sm text-ch-text-secondary">
+                {content.notes.map((note) => (
+                  <li key={note}>{note}</li>
+                ))}
+              </ul>
+            )}
           </div>
         </div>
 
