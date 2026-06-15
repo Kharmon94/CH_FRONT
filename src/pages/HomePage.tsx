@@ -16,9 +16,10 @@ export function HomePage() {
       <section className="relative overflow-hidden pb-12 text-center sm:pb-20">
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-x-0 top-0 mx-auto h-64 max-w-3xl rounded-full bg-ch-primary/20 blur-3xl"
+          className="pointer-events-none absolute left-1/2 top-0 h-80 w-[min(100vw,56rem)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-ch-primary/25 blur-3xl"
         />
         <motion.div
+          className="relative pt-16 sm:pt-24 md:pt-28"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: DURATION.hero, ease: EASE_CH }}
