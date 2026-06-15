@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../ui/Button";
+import { CopyablePath } from "../ui/CopyablePath";
 import { LOCATE_DATABASE_STEPS, LOCATE_DATABASE_RECOMMENDATIONS, type LocatePlatform } from "../../lib/locateDatabaseHelp";
 
 const PLATFORMS: LocatePlatform[] = ["wsl", "windows", "mac", "linux"];
@@ -94,11 +95,8 @@ export function LocateDatabaseHelpButton({ className = "" }: { className?: strin
             <p className="text-sm font-medium text-ch-text">Typical locations</p>
             <ul className="space-y-2">
               {content.paths.map((path) => (
-                <li
-                  key={path}
-                  className="rounded-xl border border-ch-border bg-ch-surface-elevated px-3 py-2 font-mono text-xs text-ch-text-secondary break-all"
-                >
-                  {path}
+                <li key={path}>
+                  <CopyablePath path={path} />
                 </li>
               ))}
             </ul>

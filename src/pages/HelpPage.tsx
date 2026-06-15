@@ -3,6 +3,7 @@ import { PageMeta } from "../components/seo/PageMeta";
 import { JsonLd } from "../components/seo/JsonLd";
 import { Card } from "../components/ui/Card";
 import { Button } from "../components/ui/Button";
+import { CopyablePath } from "../components/ui/CopyablePath";
 import { HELP_FAQS } from "../lib/helpFaqs";
 import { LOCATE_DATABASE_STEPS, LOCATE_DATABASE_RECOMMENDATIONS, type LocatePlatform } from "../lib/locateDatabaseHelp";
 
@@ -78,11 +79,8 @@ export function HelpPage() {
                 <h3 className="text-sm font-semibold text-ch-text">{section.title}</h3>
                 <ul className="space-y-2">
                   {section.paths.map((path) => (
-                    <li
-                      key={path}
-                      className="rounded-xl border border-ch-border bg-ch-surface-elevated px-3 py-2 font-mono text-xs text-ch-text-secondary break-all"
-                    >
-                      {path}
+                    <li key={path}>
+                      <CopyablePath path={path} />
                     </li>
                   ))}
                 </ul>
