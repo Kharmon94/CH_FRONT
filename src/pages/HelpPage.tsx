@@ -4,6 +4,7 @@ import { JsonLd } from "../components/seo/JsonLd";
 import { Card } from "../components/ui/Card";
 import { Button } from "../components/ui/Button";
 import { HELP_FAQS } from "../lib/helpFaqs";
+import { LOCATE_DATABASE_STEPS, type LocatePlatform } from "../lib/locateDatabaseHelp";
 
 function FaqItem({ question, answer }: { question: string; answer: string }) {
   return (
@@ -50,6 +51,43 @@ export function HelpPage() {
       <p className="mt-4 max-w-2xl text-ch-text-secondary">
         Common questions about Cursor chat export, linking your database, Agent Clone, and billing.
       </p>
+
+      <Card id="locate-database" className="mt-10 scroll-mt-24 space-y-4">
+        <h2 className="text-lg font-semibold text-ch-text">Locate your Cursor database</h2>
+        <p className="text-sm text-ch-text-secondary">
+          Close Cursor before linking. On the Dashboard, browse for{" "}
+          <span className="font-mono text-ch-text">state.vscdb</span> or paste its path manually. If
+          browse cannot resolve the path automatically, use the locations below.
+        </p>
+        <div className="grid gap-4 md:grid-cols-2">
+          {(Object.keys(LOCATE_DATABASE_STEPS) as LocatePlatform[]).map((key) => {
+            const section = LOCATE_DATABASE_STEPS[key];
+            return (
+              <div
+                key={key}
+                className="rounded-2xl border border-ch-border bg-ch-surface/50 p-4 space-y-3"
+              >
+                <h3 className="text-sm font-semibold text-ch-text">{section.title}</h3>
+                <ul className="space-y-2">
+                  {section.paths.map((path) => (
+                    <li
+                      key={path}
+                      className="rounded-xl border border-ch-border bg-ch-surface-elevated px-3 py-2 font-mono text-xs text-ch-text-secondary break-all"
+                    >
+                      {path}
+                    </li>
+                  ))}
+                </ul>
+                <ul className="list-disc space-y-1 pl-5 text-xs text-ch-text-secondary">
+                  {section.notes.map((note) => (
+                    <li key={note}>{note}</li>
+                  ))}
+                </ul>
+              </div>
+            );
+          })}
+        </div>
+      </Card>
 
       <div className="mt-10 space-y-3">
         {HELP_FAQS.map((item) => (

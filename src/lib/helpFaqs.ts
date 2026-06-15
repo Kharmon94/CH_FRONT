@@ -14,7 +14,7 @@ export const HELP_FAQS: FaqItem[] = [
   {
     question: "How do I link my Cursor database?",
     answer:
-      "Sign in, open the app dashboard, and paste the path to your Cursor database. The API indexes composers in the background — refresh the dashboard to see index status and composer counts.",
+      "Sign in, open the Dashboard, and browse for state.vscdb or paste its path. Close Cursor first. If browse cannot auto-detect the path, use How to locate for platform-specific folders.",
   },
   {
     question: "What is Agent Clone export?",

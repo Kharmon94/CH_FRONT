@@ -332,6 +332,8 @@ export const api = {
 
   linkedDatabases: {
     list: () => get<LinkedDatabase[]>("/linked_databases"),
+    locate: (body: { filename: string; byte_size: number; last_modified_ms?: number }) =>
+      post<{ path: string }>("/linked_databases/locate", body),
     create: (path: string) => post<LinkedDatabase>("/linked_databases", { path }),
     refresh: (id: number) => post<LinkedDatabase>(`/linked_databases/${id}/refresh`),
     destroy: (id: number) => request<void>(`/linked_databases/${id}`, { method: "DELETE" }),

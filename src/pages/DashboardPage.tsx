@@ -3,6 +3,7 @@ import { api, type LinkedDatabase } from "../services/api";
 import { Card } from "../components/ui/Card";
 import { Button } from "../components/ui/Button";
 import { LinkDatabaseForm } from "../components/databases/LinkDatabaseForm";
+import { LocateDatabaseHelpButton } from "../components/databases/LocateDatabaseHelp";
 
 export function DashboardPage() {
   const [databases, setDatabases] = useState<LinkedDatabase[]>([]);
@@ -30,7 +31,10 @@ export function DashboardPage() {
       <h1 className="text-2xl font-semibold">Dashboard</h1>
 
       <Card>
-        <h2 className="mb-4 text-lg font-medium">Link database</h2>
+        <div className="mb-4 flex items-start justify-between gap-4">
+          <h2 className="text-lg font-medium">Link database</h2>
+          <LocateDatabaseHelpButton className="shrink-0" />
+        </div>
         <LinkDatabaseForm onLinked={load} />
       </Card>
 
