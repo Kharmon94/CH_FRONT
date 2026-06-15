@@ -4,6 +4,9 @@ import userEvent from "@testing-library/user-event";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { FormatSelector } from "../components/exports/FormatSelector";
 import { HomePage } from "../pages/HomePage";
+import { AboutPage } from "../pages/AboutPage";
+import { HelpPage } from "../pages/HelpPage";
+import { ContactPage } from "../pages/ContactPage";
 import { AdminOverviewPage } from "../pages/admin/AdminOverviewPage";
 import { AdminUsersPage } from "../pages/admin/AdminUsersPage";
 import { AdminLicensesPage } from "../pages/admin/AdminLicensesPage";
@@ -45,6 +48,36 @@ describe("HomePage", () => {
       </MemoryRouter>
     );
     expect(screen.getByText(/Recover broken Cursor agents/i)).toBeInTheDocument();
+  });
+});
+
+describe("marketing pages", () => {
+  it("renders About page", () => {
+    render(
+      <MemoryRouter>
+        <AboutPage />
+      </MemoryRouter>
+    );
+    expect(screen.getByRole("heading", { name: /About Cursor Help/i })).toBeInTheDocument();
+  });
+
+  it("renders Help FAQ page", () => {
+    render(
+      <MemoryRouter>
+        <HelpPage />
+      </MemoryRouter>
+    );
+    expect(screen.getByRole("heading", { name: /Help & FAQ/i })).toBeInTheDocument();
+    expect(screen.getByText(/What is Cursor Help/i)).toBeInTheDocument();
+  });
+
+  it("renders Contact page", () => {
+    render(
+      <MemoryRouter>
+        <ContactPage />
+      </MemoryRouter>
+    );
+    expect(screen.getByRole("heading", { name: /Contact us/i })).toBeInTheDocument();
   });
 });
 

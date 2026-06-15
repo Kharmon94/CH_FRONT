@@ -5,6 +5,9 @@ describe("navContext", () => {
   it("resolves public routes", () => {
     expect(resolveNavContext("/")).toBe("public");
     expect(resolveNavContext("/pricing")).toBe("public");
+    expect(resolveNavContext("/about")).toBe("public");
+    expect(resolveNavContext("/help")).toBe("public");
+    expect(resolveNavContext("/contact")).toBe("public");
     expect(resolveNavContext("/privacy")).toBe("public");
   });
 

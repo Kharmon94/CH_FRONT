@@ -4,10 +4,13 @@ import { Link } from "react-router-dom";
 import {
   CreditCard,
   ExternalLink,
+  HelpCircle,
   Home,
   LogOut,
+  Mail,
   Shield,
   Users,
+  Info,
 } from "lucide-react";
 import { useAuth } from "../../contexts/AuthContext";
 import { useIsMobile } from "../../hooks/use-mobile";
@@ -79,8 +82,10 @@ export function MoreMenu({
       ];
     }
     return [
+      { icon: Info, label: "About", path: "/about" },
+      { icon: HelpCircle, label: "Help & FAQ", path: "/help" },
+      { icon: Mail, label: "Contact us", path: "/contact" },
       { icon: Shield, label: "Privacy", path: "/privacy" },
-      { icon: Home, label: "About Cursor Help", path: "/" },
     ];
   })();
 

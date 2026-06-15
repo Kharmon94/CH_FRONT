@@ -7,6 +7,9 @@ import { AdminRoute } from "../components/auth/AdminRoute";
 import { HomePage } from "../pages/HomePage";
 import { PricingPage } from "../pages/PricingPage";
 import { PrivacyPage } from "../pages/PrivacyPage";
+import { AboutPage } from "../pages/AboutPage";
+import { ContactPage } from "../pages/ContactPage";
+import { HelpPage } from "../pages/HelpPage";
 import { DashboardPage } from "../pages/DashboardPage";
 import { ComposersPage } from "../pages/ComposersPage";
 import { ComposerDetailPage } from "../pages/ComposerDetailPage";
@@ -44,6 +47,9 @@ export const router = createBrowserRouter([
     children: [
       { path: "/", element: <HomePage /> },
       { path: "/pricing", element: <PricingPage /> },
+      { path: "/about", element: <AboutPage /> },
+      { path: "/contact", element: <ContactPage /> },
+      { path: "/help", element: <HelpPage /> },
       { path: "/privacy", element: <PrivacyPage /> },
     ],
   },
