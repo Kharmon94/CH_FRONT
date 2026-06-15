@@ -10,6 +10,8 @@ import { PrivacyPage } from "../pages/PrivacyPage";
 import { AboutPage } from "../pages/AboutPage";
 import { ContactPage } from "../pages/ContactPage";
 import { HelpPage } from "../pages/HelpPage";
+import { BlogIndexPage } from "../pages/BlogIndexPage";
+import { BlogPostPage } from "../pages/BlogPostPage";
 import { DashboardPage } from "../pages/DashboardPage";
 import { ComposersPage } from "../pages/ComposersPage";
 import { ComposerDetailPage } from "../pages/ComposerDetailPage";
@@ -30,6 +32,8 @@ import { AdminUserDetailPage } from "../pages/admin/AdminUserDetailPage";
 import { AdminTeamsPage } from "../pages/admin/AdminTeamsPage";
 import { AdminTeamDetailPage } from "../pages/admin/AdminTeamDetailPage";
 import { AdminLicensesPage } from "../pages/admin/AdminLicensesPage";
+import { AdminBlogPostsPage } from "../pages/admin/AdminBlogPostsPage";
+import { AdminBlogPostEditorPage } from "../pages/admin/AdminBlogPostEditorPage";
 import { TeamProvider } from "../contexts/TeamContext";
 import { WorkspaceProvider } from "../contexts/WorkspaceContext";
 
@@ -51,6 +55,8 @@ export const router = createBrowserRouter([
       { path: "/contact", element: <ContactPage /> },
       { path: "/help", element: <HelpPage /> },
       { path: "/privacy", element: <PrivacyPage /> },
+      { path: "/blog", element: <BlogIndexPage /> },
+      { path: "/blog/:slug", element: <BlogPostPage /> },
     ],
   },
   { path: "/app/login", element: <LoginPage /> },
@@ -94,6 +100,9 @@ export const router = createBrowserRouter([
       { path: "teams", element: <AdminTeamsPage /> },
       { path: "teams/:teamId", element: <AdminTeamDetailPage /> },
       { path: "licenses", element: <AdminLicensesPage /> },
+      { path: "blog", element: <AdminBlogPostsPage /> },
+      { path: "blog/new", element: <AdminBlogPostEditorPage /> },
+      { path: "blog/:postId", element: <AdminBlogPostEditorPage /> },
     ],
   },
 ]);

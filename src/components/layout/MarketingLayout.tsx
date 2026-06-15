@@ -3,6 +3,7 @@ import { ShellLayout } from "./ShellLayout";
 
 const footerLinks = [
   { label: "About", to: "/about" },
+  { label: "Blog", to: "/blog" },
   { label: "Help", to: "/help" },
   { label: "Contact", to: "/contact" },
   { label: "Privacy", to: "/privacy" },

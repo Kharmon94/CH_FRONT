@@ -1,5 +1,6 @@
 import { type FormEvent, useState } from "react";
 import { Link } from "react-router-dom";
+import { PageMeta } from "../components/seo/PageMeta";
 import { Card } from "../components/ui/Card";
 import { Button } from "../components/ui/Button";
 import { Input } from "../components/ui/Input";
@@ -22,12 +23,18 @@ export function ContactPage() {
 
   return (
     <main className="py-8">
+      <PageMeta
+        title="Contact"
+        description="Get help with Cursor chat export, Agent Clone, billing, or account setup. We typically reply within one business day."
+        path="/contact"
+      />
+
       <h1 className="text-4xl font-bold" style={{ fontFamily: "var(--font-display)" }}>
         Contact us
       </h1>
       <p className="mt-4 max-w-2xl text-ch-text-secondary">
         Questions about billing, exports, or getting started? Send us a note — we typically reply
-        within one business day.
+        within one business day (weekdays).
       </p>
 
       <div className="mt-10 grid gap-6 lg:grid-cols-2">
@@ -40,9 +47,15 @@ export function ContactPage() {
             </a>
             .
           </p>
-          <p className="mt-4 text-sm text-ch-text-secondary">
-            For account or billing issues, include the email on your Cursor Help account.
-          </p>
+          <div className="mt-4 space-y-2 text-sm text-ch-text-secondary">
+            <p className="font-medium text-ch-text">Include in your message:</p>
+            <ul className="list-disc space-y-1 pl-5">
+              <li>The email on your Cursor Help account</li>
+              <li>Your team name (if billing or workspace related)</li>
+              <li>What you tried and any error messages you saw</li>
+              <li>For export issues: composer name and export format</li>
+            </ul>
+          </div>
         </Card>
 
         <Card>

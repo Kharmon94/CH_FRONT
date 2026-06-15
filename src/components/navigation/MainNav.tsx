@@ -13,6 +13,7 @@ import {
   LogIn,
   AppWindow,
   Bot,
+  FileText,
 } from "lucide-react";
 import { useMemo } from "react";
 import { useAuth } from "../../contexts/AuthContext";
@@ -61,6 +62,7 @@ export function MainNav({
         { key: "overview", label: "Overview", to: "/admin", icon: Shield, end: true },
         { key: "users", label: "Users", to: "/admin/users", icon: Users },
         { key: "teams", label: "Teams", to: "/admin/teams", icon: Building2 },
+        { key: "blog", label: "Blog", to: "/admin/blog", icon: FileText },
         { key: "licenses", label: "Licenses", to: "/admin/licenses", icon: CreditCard, end: true },
       ];
     }

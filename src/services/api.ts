@@ -108,17 +108,6 @@ export type AdminUser = {
   teams?: Array<{ id: number; name: string; slug: string }>;
 };
 
-export type AdminStats = {
-  users_count: number;
-  admins_count: number;
-  teams_count: number;
-  pro_teams_count: number;
-  free_teams_count: number;
-  total_exports: number;
-  recent_users: AdminUser[];
-  recent_teams: AdminTeam[];
-};
-
 export type AdminLicense = {
   team_id: number;
   team_name: string;
@@ -140,6 +129,53 @@ export type AdminTeam = {
   license: { tier: string; pro: boolean; status?: string | null };
   members?: Array<{ id: number; email: string; name: string | null; role: string }>;
   workspaces?: Array<{ id: number; name: string; slug: string }>;
+};
+
+export type AdminStats = {
+  users_count: number;
+  admins_count: number;
+  teams_count: number;
+  pro_teams_count: number;
+  free_teams_count: number;
+  total_exports: number;
+  published_posts_count?: number;
+  recent_users: AdminUser[];
+  recent_teams: AdminTeam[];
+};
+
+export type BlogPostAuthor = {
+  name: string | null;
+  email: string;
+};
+
+export type BlogPostSummary = {
+  id: number;
+  title: string;
+  slug: string;
+  excerpt: string | null;
+  status: "draft" | "published";
+  published_at: string | null;
+  created_at: string;
+  updated_at: string;
+  meta_title: string | null;
+  meta_description: string | null;
+  cover_image_url: string | null;
+  author: BlogPostAuthor;
+};
+
+export type BlogPost = BlogPostSummary & {
+  body: string;
+};
+
+export type BlogPostPayload = {
+  title: string;
+  slug?: string;
+  excerpt?: string;
+  body?: string;
+  status?: "draft" | "published";
+  meta_title?: string;
+  meta_description?: string;
+  cover_image_signed_id?: string;
 };
 
 export class ApiError extends Error {
@@ -348,6 +384,11 @@ export const api = {
   },
   upload: directUploadFile,
 
+  blogPosts: {
+    list: () => get<BlogPostSummary[]>("/blog_posts"),
+    show: (slug: string) => get<BlogPost>(`/blog_posts/${slug}`),
+  },
+
   admin: {
     stats: () => get<AdminStats>("/admin/stats"),
     users: {
@@ -364,6 +405,14 @@ export const api = {
     },
     licenses: {
       list: (params?: { tier?: string }) => get<AdminLicense[]>("/admin/licenses", params),
+    },
+    blogPosts: {
+      list: () => get<BlogPostSummary[]>("/admin/blog_posts"),
+      show: (id: number) => get<BlogPost>(`/admin/blog_posts/${id}`),
+      create: (body: BlogPostPayload) => post<BlogPost>("/admin/blog_posts", body),
+      update: (id: number, body: BlogPostPayload) =>
+        patch<BlogPost>(`/admin/blog_posts/${id}`, body),
+      destroy: (id: number) => request<void>(`/admin/blog_posts/${id}`, { method: "DELETE" }),
     },
   },
 };

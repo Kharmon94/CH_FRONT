@@ -19,3 +19,7 @@ Object.defineProperty(globalThis, "IntersectionObserver", {
   configurable: true,
   value: MockIntersectionObserver,
 });
+
+if (!document.elementFromPoint) {
+  document.elementFromPoint = () => null;
+}

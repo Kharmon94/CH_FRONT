@@ -9,6 +9,8 @@ describe("navContext", () => {
     expect(resolveNavContext("/help")).toBe("public");
     expect(resolveNavContext("/contact")).toBe("public");
     expect(resolveNavContext("/privacy")).toBe("public");
+    expect(resolveNavContext("/blog")).toBe("public");
+    expect(resolveNavContext("/blog/my-post")).toBe("public");
   });
 
   it("resolves app routes except minimal chrome auth paths", () => {
@@ -26,6 +28,9 @@ describe("navContext", () => {
     expect(resolveNavContext("/admin/users/42")).toBe("admin");
     expect(resolveNavContext("/admin/teams/7")).toBe("admin");
     expect(resolveNavContext("/admin/licenses")).toBe("admin");
+    expect(resolveNavContext("/admin/blog")).toBe("admin");
+    expect(resolveNavContext("/admin/blog/new")).toBe("admin");
+    expect(resolveNavContext("/admin/blog/42")).toBe("admin");
     expect(resolveNavContext("/admin/login")).toBe("public");
   });
 

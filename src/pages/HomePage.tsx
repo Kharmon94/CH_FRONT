@@ -1,18 +1,64 @@
 import { Link } from "react-router-dom";
 import { motion } from "motion/react";
+import { PageMeta } from "../components/seo/PageMeta";
+import { JsonLd } from "../components/seo/JsonLd";
 import { Button } from "../components/ui/Button";
 import { Card } from "../components/ui/Card";
+import { siteUrl } from "../lib/siteUrl";
 import { DURATION, EASE_CH, STAGGER_CONTAINER, STAGGER_ITEM } from "../lib/motion";
 
 const features = [
-  ["Link your Cursor database", "Point Cursor Help at your local Cursor database. Nothing uploads."],
-  ["Search every chat", "Find the session you need — even across 10 GB of history."],
-  ["Agent Clone export", "Bundle same-name sessions into one handoff file for a fresh agent."],
+  [
+    "Link your Cursor database",
+    "Point Cursor Help at your local Cursor database. Your chats never leave your machine.",
+  ],
+  [
+    "Search every chat",
+    "Find the session you need — even across 10 GB of Cursor chat history.",
+  ],
+  [
+    "Agent Clone export",
+    "Bundle same-name sessions into one handoff file and continue in a fresh Cursor agent.",
+  ],
 ] as const;
 
 export function HomePage() {
+  const origin = siteUrl();
+
   return (
     <main>
+      <PageMeta
+        description="Local-first Cursor chat export and Agent Clone handoffs. Search every composer session and recover broken agents without uploading your database."
+        path="/"
+      />
+      <JsonLd
+        data={[
+          {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            name: "Cursor Help",
+            url: origin || undefined,
+            description:
+              "Local-first Cursor chat export, search, and Agent Clone handoffs for developers.",
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            name: "Cursor Help",
+            applicationCategory: "DeveloperApplication",
+            operatingSystem: "Web",
+            url: origin || undefined,
+            description:
+              "Export Cursor chat history, search composer sessions, and generate Agent Clone handoff files locally.",
+            offers: {
+              "@type": "Offer",
+              price: "0",
+              priceCurrency: "USD",
+            },
+          },
+        ]}
+      />
+
       <section className="relative overflow-hidden pb-12 text-center sm:pb-20">
         <div
           aria-hidden
@@ -24,15 +70,18 @@ export function HomePage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: DURATION.hero, ease: EASE_CH }}
         >
+          <p className="text-sm font-medium text-ch-accent">
+            Built for developers who hit agent dead-ends
+          </p>
           <h1
-            className="text-4xl font-bold tracking-tight text-ch-text sm:text-6xl"
+            className="mt-3 text-4xl font-bold tracking-tight text-ch-text sm:text-6xl"
             style={{ fontFamily: "var(--font-display)" }}
           >
-            Recover broken Cursor agents
+            Cursor chat export &amp; Agent Clone recovery
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg text-ch-text-secondary">
-            Export full chat history or clone your agent into a fresh session — locally,
-            privately, in one click.
+            Search every composer session, export full chat history, and clone a broken agent into a
+            fresh session — locally, privately, in one click.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <Link to="/app">
@@ -40,6 +89,9 @@ export function HomePage() {
             </Link>
             <Link to="/pricing">
               <Button variant="secondary">View Pricing</Button>
+            </Link>
+            <Link to="/help">
+              <Button variant="secondary">Help &amp; FAQ</Button>
             </Link>
           </div>
         </motion.div>
@@ -68,14 +120,17 @@ export function HomePage() {
           Agent Clone
         </h2>
         <p className="mt-3 max-w-3xl text-ch-text-secondary">
-          Bundles every session sharing the same name into a structured handoff. Attach to a
-          new Cursor Agent, paste the prompt, keep building.
+          When a Cursor agent session breaks, Agent Clone bundles every session sharing the same name
+          into a structured handoff. Attach to a new agent, paste the prompt, and keep building.
         </p>
         <ol className="mt-6 list-decimal space-y-2 pl-5 text-sm text-ch-text-secondary">
           <li>Export Agent Clone from your primary session</li>
           <li>Open a fresh Cursor Agent chat</li>
           <li>Paste the Start here prompt and attach the file</li>
         </ol>
+        <Link to="/help" className="mt-6 inline-block text-sm font-medium text-ch-primary hover:underline">
+          Learn more in Help &amp; FAQ →
+        </Link>
       </section>
     </main>
   );

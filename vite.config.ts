@@ -6,7 +6,11 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: {
     proxy: {
-      "/api": "http://localhost:3000",
+      "/api": process.env.VITE_API_PROXY_TARGET || "http://localhost:3000",
+      "/sitemap.xml": {
+        target: process.env.VITE_API_PROXY_TARGET || "http://localhost:3000",
+        rewrite: () => "/api/v1/sitemap.xml",
+      },
     },
   },
   test: {

@@ -10,6 +10,9 @@ import { ContactPage } from "../pages/ContactPage";
 import { AdminOverviewPage } from "../pages/admin/AdminOverviewPage";
 import { AdminUsersPage } from "../pages/admin/AdminUsersPage";
 import { AdminLicensesPage } from "../pages/admin/AdminLicensesPage";
+import { BlogIndexPage } from "../pages/BlogIndexPage";
+import { BlogPostPage } from "../pages/BlogPostPage";
+import { AdminBlogPostsPage } from "../pages/admin/AdminBlogPostsPage";
 import { OAuthGoogleCallbackPage } from "../pages/OAuthGoogleCallbackPage";
 import { TeamSwitcher } from "../components/teams/TeamSwitcher";
 import { TeamProvider } from "../contexts/TeamContext";
@@ -47,7 +50,7 @@ describe("HomePage", () => {
         <HomePage />
       </MemoryRouter>
     );
-    expect(screen.getByText(/Recover broken Cursor agents/i)).toBeInTheDocument();
+    expect(screen.getByText(/Cursor chat export/i)).toBeInTheDocument();
   });
 });
 
@@ -78,6 +81,97 @@ describe("marketing pages", () => {
       </MemoryRouter>
     );
     expect(screen.getByRole("heading", { name: /Contact us/i })).toBeInTheDocument();
+  });
+});
+
+describe("Blog pages", () => {
+  beforeEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it("renders blog index with mocked posts", async () => {
+    vi.spyOn(apiModule.api.blogPosts, "list").mockResolvedValue([
+      {
+        id: 1,
+        title: "Agent Clone guide",
+        slug: "agent-clone-guide",
+        excerpt: "How to hand off context.",
+        status: "published",
+        published_at: "2026-06-01T00:00:00Z",
+        created_at: "2026-06-01T00:00:00Z",
+        updated_at: "2026-06-01T00:00:00Z",
+        meta_title: null,
+        meta_description: null,
+        cover_image_url: null,
+        author: { name: "Team", email: "team@cursorhelp.com" },
+      },
+    ]);
+
+    render(
+      <MemoryRouter>
+        <BlogIndexPage />
+      </MemoryRouter>
+    );
+
+    await waitFor(() => expect(screen.getByText("Agent Clone guide")).toBeInTheDocument());
+    expect(apiModule.api.blogPosts.list).toHaveBeenCalled();
+  });
+
+  it("renders blog post detail", async () => {
+    vi.spyOn(apiModule.api.blogPosts, "show").mockResolvedValue({
+      id: 1,
+      title: "Export tips",
+      slug: "export-tips",
+      excerpt: "Quick tips",
+      body: "<p>Content here</p>",
+      status: "published",
+      published_at: "2026-06-01T00:00:00Z",
+      created_at: "2026-06-01T00:00:00Z",
+      updated_at: "2026-06-01T00:00:00Z",
+      meta_title: null,
+      meta_description: null,
+      cover_image_url: null,
+      author: { name: "Author", email: "author@example.com" },
+    });
+
+    render(
+      <MemoryRouter initialEntries={["/blog/export-tips"]}>
+        <Routes>
+          <Route path="/blog/:slug" element={<BlogPostPage />} />
+        </Routes>
+      </MemoryRouter>
+    );
+
+    await waitFor(() => expect(screen.getByRole("heading", { name: "Export tips" })).toBeInTheDocument());
+    expect(screen.getByText("Content here")).toBeInTheDocument();
+  });
+
+  it("renders admin blog list", async () => {
+    vi.spyOn(apiModule.api.admin.blogPosts, "list").mockResolvedValue([
+      {
+        id: 2,
+        title: "Draft post",
+        slug: "draft-post",
+        excerpt: null,
+        status: "draft",
+        published_at: null,
+        created_at: "2026-06-01T00:00:00Z",
+        updated_at: "2026-06-01T00:00:00Z",
+        meta_title: null,
+        meta_description: null,
+        cover_image_url: null,
+        author: { name: null, email: "admin@example.com" },
+      },
+    ]);
+
+    render(
+      <MemoryRouter>
+        <AdminBlogPostsPage />
+      </MemoryRouter>
+    );
+
+    await waitFor(() => expect(screen.getByText("Draft post")).toBeInTheDocument());
+    expect(screen.getByText("draft")).toBeInTheDocument();
   });
 });
 

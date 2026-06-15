@@ -11,6 +11,7 @@ import {
   Shield,
   Users,
   Info,
+  Newspaper,
 } from "lucide-react";
 import { useAuth } from "../../contexts/AuthContext";
 import { useIsMobile } from "../../hooks/use-mobile";
@@ -83,6 +84,7 @@ export function MoreMenu({
     }
     return [
       { icon: Info, label: "About", path: "/about" },
+      { icon: Newspaper, label: "Blog", path: "/blog" },
       { icon: HelpCircle, label: "Help & FAQ", path: "/help" },
       { icon: Mail, label: "Contact us", path: "/contact" },
       { icon: Shield, label: "Privacy", path: "/privacy" },

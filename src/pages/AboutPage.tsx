@@ -1,26 +1,57 @@
 import { Link } from "react-router-dom";
+import { PageMeta } from "../components/seo/PageMeta";
 import { Card } from "../components/ui/Card";
 import { Button } from "../components/ui/Button";
+
+const useCases = [
+  {
+    title: "Dead agent session",
+    body: "Your Cursor agent stopped responding mid-task. Export the full thread or Agent Clone into a fresh chat without re-explaining the project.",
+  },
+  {
+    title: "Lost context across sessions",
+    body: "Same feature name, multiple composer tabs. Agent Clone merges same-name sessions so the next agent sees the full story.",
+  },
+  {
+    title: "Massive chat history",
+    body: "10 GB of local Cursor data and no way to find yesterday's debugging session. Search every composer and export what you need.",
+  },
+];
 
 export function AboutPage() {
   return (
     <main className="py-8">
+      <PageMeta
+        title="About"
+        description="Cursor Help helps developers recover broken Cursor agent sessions with local-first chat export, search, and Agent Clone handoffs."
+        path="/about"
+      />
+
       <h1 className="text-4xl font-bold" style={{ fontFamily: "var(--font-display)" }}>
         About Cursor Help
       </h1>
       <p className="mt-4 max-w-2xl text-lg text-ch-text-secondary">
-        Cursor Help helps you recover broken Cursor agent sessions — export full chat history or
-        clone an agent into a fresh session, locally and privately.
+        Cursor Help is for developers who depend on Cursor agents and need a reliable way to export
+        chat history, search composer sessions, and hand off context when something breaks.
       </p>
 
       <div className="mt-10 space-y-6">
         <Card className="space-y-3 text-sm text-ch-text-secondary">
-          <h2 className="text-lg font-semibold text-ch-text">What we do</h2>
+          <h2 className="text-lg font-semibold text-ch-text">Who it&apos;s for</h2>
           <p>
-            Point Cursor Help at your local Cursor database on your machine. We index composers on your machine, let you search every chat, and export markdown or
-            Agent Clone handoff files — without uploading your database to our servers.
+            Solo developers and teams using Cursor Composer daily — especially when agents lose
+            context, sessions stall, or you need to archive and share a long debugging thread.
           </p>
         </Card>
+
+        <div className="grid gap-4 md:grid-cols-3">
+          {useCases.map((item) => (
+            <Card key={item.title} className="space-y-2 text-sm text-ch-text-secondary">
+              <h3 className="font-semibold text-ch-text">{item.title}</h3>
+              <p>{item.body}</p>
+            </Card>
+          ))}
+        </div>
 
         <Card className="space-y-3 text-sm text-ch-text-secondary">
           <h2 className="text-lg font-semibold text-ch-text">Local-first by design</h2>
